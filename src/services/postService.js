@@ -20,7 +20,6 @@ async function getPosts(setPosts) {
 
         setPosts(posts)
     } catch (err) {
-        callToast('An error occured while trying to fetch the posts, please refresh the page', 'error')
         treatErrors(err)
     }
 }

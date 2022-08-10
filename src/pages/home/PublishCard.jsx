@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { createPost } from "../../services/postService"
-import { PublishCardWrapper } from "./TimelineStyle"
+import { PublishCardWrapper } from "./HomeStyle"
 
 export default function PublishCard({ setPosts }) {
     const [post, setPost] = useState({ url: "", description: "" })

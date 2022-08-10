@@ -13,67 +13,6 @@ export const Container = styled.div`
     }
 `
 
-export const TimelineWrapper = styled.div`
-    width: 611px;
-
-    > h1 {
-        font-size: 25px;
-        color: #fff;
-    }
-
-    @media screen and (max-width: 611px) {
-        width: 100%;
-    }
-`
-
-export const TrendingWrapper = styled.div`
-    width: 301px;
-
-    > div {
-        width: 301px;
-        height: 406px;
-        background-color: #171717;
-        border-radius: 16px;
-        margin-top: 85px;
-        padding: 16px 0;
-    
-        position: fixed;
-    }
-
-    h1 {
-        font-weight: 700;
-        font-size: 27px;
-        color: #FFFFFF;
-        margin-bottom: 18px;
-        font-family: 'Oswald';
-    }
-
-    .line {
-        background-color: #484848;
-        height: 1px;
-    }
-
-    .hashtags {
-        margin-top: 22px;
-    }
-
-    p {
-        font-weight: 700;
-        font-size: 19px;
-        color: #fff;
-        margin-bottom: 15px;
-        cursor: pointer;
-    }
-
-    p:hover {
-        text-decoration: underline;
-    }
-
-    h1, p {
-        margin-left: 16px;
-    }
-`
-
 export const PublishCardWrapper = styled.div`
     display: flex;
 
