@@ -1,16 +1,19 @@
-import { useEffect } from 'react'
-import { useState } from 'react'
 import { getHashtags } from '../../services/hashtagService'
 import { TrendingWrapper } from './TrendingStyle'
 import { useNavigate } from 'react-router-dom';
+import { useContext, useEffect, useState } from 'react';
+import HashtagContext from '../../contexts/HashtagContext';
+import Skeleton from "react-loading-skeleton";
+import 'react-loading-skeleton/dist/skeleton.css'
 
 export default function Trending() {
-    const [hashtags, setHashtags] = useState([])
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
+    const { hashtags, setHashtags } = useContext(HashtagContext)
 
     useEffect(() => {
         loadHashtags()
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     function loadHashtags() {
@@ -18,7 +21,15 @@ export default function Trending() {
 
         getHashtags(setHashtags)
 
-        setLoading(false)
+        setTimeout(() => setLoading(false), 1000)
+    }
+
+    function renderSkeletonLoading() {
+        let skeleton = new Array(9).fill(9)
+
+        return skeleton.map(() => 
+            <Skeleton baseColor="#444" style={{ width: '90%', marginLeft: '16px', height: '20px', marginBottom: '15px' }} />
+        )
     }
 
     return (
@@ -27,14 +38,17 @@ export default function Trending() {
                 <h1>trending</h1>
                 <div className="line"></div>
                 <div className="hashtags">
-                    {loading ?
-                        <p>Loading...</p> :
+                    {loading ? (
+                        <>
+                            {renderSkeletonLoading()}
+                        </> 
+                    ) : (
                         hashtags.length > 0 ?
                             hashtags.map(hashtag =>
-                                <p key={hashtag.id} onClick={() => navigate(`/hashtag/${hashtag.name}`, { state: { id: hashtag.id } })}># {hashtag.name}</p>
+                                <p key={hashtag.id} onClick={() => navigate(`/hashtag/${hashtag.name}`)}># {hashtag.name}</p>
                             )
-                            : <p>There are no hashtags yet</p>
-                    }
+                        : <p>There are no hashtags yet</p>
+                    )}
                 </div>
             </div>
         </TrendingWrapper>

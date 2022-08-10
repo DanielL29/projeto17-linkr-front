@@ -19,5 +19,6 @@ export const HeaderWrapper = styled.div`
 
     h1 {
         font-family: 'Passion One';
+        cursor: pointer;
     }
 `
