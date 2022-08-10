@@ -7,8 +7,10 @@ import Trending from "../../layouts/trending/Trending";
 export default function Home() {
     return (
         <Container>
-            <Timeline title="timeline" publish />
-            <Trending />
+            <div>
+                <Timeline title="timeline" publish />
+                <Trending />
+            </div>
             <ToastContainer />
         </Container>
     )

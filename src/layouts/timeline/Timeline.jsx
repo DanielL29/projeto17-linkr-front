@@ -7,33 +7,32 @@ import { getPosts } from "../../services/postService";
 import PostCard from "../post-card/PostCard";
 import { TimelineWrapper } from "./TimelineStyle";
 
-export default function Timeline({ publish, title, id }) {
+export default function Timeline({ publish, title, hashtag }) {
     const [posts, setPosts] = useState([])
-    const [loading, setLoading] = useState(false)
+    const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         loadPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [id])
+    }, [hashtag])
 
     function loadPosts() {
         setLoading(true)
 
-        if(publish) {
+        if (publish) {
             getPosts(setPosts)
         } else {
-            getHashtagPosts(id, setPosts)
+            getHashtagPosts(hashtag, setPosts)
         }
 
-        setLoading(false)
+        setTimeout(() => setLoading(false), 1000)
     }
 
     return (
         <TimelineWrapper>
             <PageTitle title={title} />
             {publish ? <PublishCard setPosts={setPosts} /> : ''}
-            {loading ?
-                <h1>Loading...</h1> :
+            {loading ? <PostCard loading={loading} /> :
                 posts.length > 0 ?
                     posts.map(post =>
                         <PostCard key={post.id}
@@ -43,6 +42,7 @@ export default function Timeline({ publish, title, id }) {
                             urlTitle={post.urlTitle}
                             urlDescription={post.urlDescription}
                             urlImage={post.urlImage}
+                            loading={loading}
                         />
                     )
                     : <h1>There are no posts yet</h1>

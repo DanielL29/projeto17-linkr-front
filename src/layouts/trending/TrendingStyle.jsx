@@ -52,4 +52,8 @@ export const TrendingWrapper = styled.div`
     h1, p {
         margin-left: 16px;
     }
+
+    @media screen and (max-width: 937px) {
+        display: none;
+    }
 `

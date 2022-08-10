@@ -67,7 +67,7 @@ export const UrlMetadataWrapper = styled.div`
         font-weight: 400;
         font-size: 16px;
         color: #CECECE;
-        margin-bottom: 5px;
+        margin-bottom: 15px;
     }
 
     h3 {
@@ -96,10 +96,10 @@ export const UrlMetadataWrapper = styled.div`
     }
 
     @media screen and (max-width: 611px) {
-        min-height: 115px;
+        height: auto;
 
         img {
-            width: 30%;
+            width: 40%;
         }
     }
 `

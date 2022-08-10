@@ -2,14 +2,29 @@ import styled from 'styled-components'
 
 export const Container = styled.div`
     display: flex;
-    justify-content: space-between;
+    align-items: center;
+    justify-content: center;
 
-    margin: 0 auto;
-    margin-top: 155px;
-    width: 937px;
+    > div:first-child {
+        display: flex;
+        justify-content: space-between;
+
+        margin-top: 155px;
+        width: 937px;
+        box-sizing: border-box;
+    }
+
+    @media screen and (max-width: 937px) {
+        > div:first-child {
+            width: 611px;
+        }
+    }
 
     @media screen and (max-width: 611px) {
-        margin-top: 97px;
+        > div:first-child {
+            margin-top: 97px;
+            width: 100%;
+        }
     }
 `
 

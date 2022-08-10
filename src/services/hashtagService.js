@@ -12,10 +12,9 @@ async function getHashtags(setHashtags) {
     }
 }
 
-async function getHashtagPosts(id, setPosts) {
-    console.log(id)
+async function getHashtagPosts(hashtag, setPosts) {
     try {
-        const { data: hashtagPosts } = await axios.get(`${BASE_URL}/hashtags/${id}`)
+        const { data: hashtagPosts } = await axios.get(`${BASE_URL}/hashtags/${hashtag}`)
 
         setPosts(hashtagPosts)
     } catch (err) {
