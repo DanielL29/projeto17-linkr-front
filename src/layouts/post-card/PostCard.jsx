@@ -1,3 +1,4 @@
+// import ReactHashtag from "react-hashtag";
 import { PostCardWrapper, UrlMetadataWrapper } from "./PostCardStyle";
 
 
@@ -7,7 +8,9 @@ export default function PostCard({ username, description, url, urlImage, urlDesc
             <img src="https://http.cat/422.jpg" alt="user" />
             <div>
                 <h1>{username}</h1>
-                <p>{description}</p>
+                {/* <ReactHashtag> */}
+                    <p>{description}</p>
+                {/* </ReactHashtag> */}
                 <UrlMetadataWrapper onClick={() => window.open(url, '_blank')}>
                     <div>
                         <h2>{urlTitle}</h2>

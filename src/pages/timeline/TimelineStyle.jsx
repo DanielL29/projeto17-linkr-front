@@ -1,7 +1,19 @@
 import styled from 'styled-components'
 
-export const TimelineWrapper = styled.div`
+export const Container = styled.div`
+    display: flex;
+    justify-content: space-between;
+
     margin: 0 auto;
+    margin-top: 155px;
+    width: 937px;
+
+    @media screen and (max-width: 611px) {
+        margin-top: 97px;
+    }
+`
+
+export const TimelineWrapper = styled.div`
     width: 611px;
 
     > h1 {
@@ -11,6 +23,54 @@ export const TimelineWrapper = styled.div`
 
     @media screen and (max-width: 611px) {
         width: 100%;
+    }
+`
+
+export const TrendingWrapper = styled.div`
+    width: 301px;
+
+    > div {
+        width: 301px;
+        height: 406px;
+        background-color: #171717;
+        border-radius: 16px;
+        margin-top: 85px;
+        padding: 16px 0;
+    
+        position: fixed;
+    }
+
+    h1 {
+        font-weight: 700;
+        font-size: 27px;
+        color: #FFFFFF;
+        margin-bottom: 18px;
+        font-family: 'Oswald';
+    }
+
+    .line {
+        background-color: #484848;
+        height: 1px;
+    }
+
+    .hashtags {
+        margin-top: 22px;
+    }
+
+    p {
+        font-weight: 700;
+        font-size: 19px;
+        color: #fff;
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+
+    p:hover {
+        text-decoration: underline;
+    }
+
+    h1, p {
+        margin-left: 16px;
     }
 `
 
