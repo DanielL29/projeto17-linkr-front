@@ -25,7 +25,7 @@ export const PublishCardWrapper = styled.div`
     margin-bottom: 30px;
 
     img {
-        width: 50px;
+        min-width: 50px;
         height: 50px;
         border-radius: 26px;
         margin-right: 18px;
@@ -43,7 +43,6 @@ export const PublishCardWrapper = styled.div`
         font-size: 20px;    
         color: #707070;
         margin-bottom: 15px;
-        text-align: center;
     }
 
     input, textarea {
@@ -90,6 +89,10 @@ export const PublishCardWrapper = styled.div`
 
         img {
             display: none;
+        }
+
+        h1 {
+            text-align: center;
         }
     }
 `

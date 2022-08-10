@@ -10,7 +10,7 @@ export const PostCardWrapper = styled.div`
     margin-bottom: 16px;
 
     img {
-        width: 50px;
+        min-width: 50px;
         height: 50px;
         border-radius: 26px;
         margin-right: 18px;
@@ -60,6 +60,7 @@ export const UrlMetadataWrapper = styled.div`
 
         padding: 20px;
         height: 100%;
+        width: 70%;
     }
 
     h2 {
