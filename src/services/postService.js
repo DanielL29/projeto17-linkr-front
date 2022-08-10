@@ -1,16 +1,28 @@
 import axios from 'axios'
 import { BASE_URL } from '../constants'
-import { treatErrors } from '../utils/global'
+import { treatErrors, callToast } from '../utils/global'
 
-async function createPost(post, setPost) {
-    console.log(post)
+async function createPost(post, setPost, setPosts) {
     try {
         await axios.post(`${BASE_URL}/posts`, post)
 
         setPost({ url: '', description: '' })
+        await getPosts(setPosts)
     } catch (err) {
+        callToast('Houve um erro ao publicar seu link', 'error')
         treatErrors(err)
     }
 }
 
-export { createPost }
+async function getPosts(setPosts) {
+    try {
+        const { data: posts } = await axios.get(`${BASE_URL}/posts`)
+
+        setPosts(posts)
+    } catch (err) {
+        callToast('An error occured while trying to fetch the posts, please refresh the page', 'error')
+        treatErrors(err)
+    }
+}
+
+export { createPost, getPosts }

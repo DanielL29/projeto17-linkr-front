@@ -16,6 +16,7 @@ export const ToggleLogoutWrapper = styled.div`
         right: 0;
         top: 72px;
         cursor: pointer;
+        z-index: 1;
     }
 
     img {
@@ -23,5 +24,12 @@ export const ToggleLogoutWrapper = styled.div`
         height: 53px;
         border-radius: 26px;
         object-fit: cover;
+    }
+
+    @media screen and (max-width: 611px) {
+        img {
+            width: 44px;
+            height: 44px;
+        }
     }
 `

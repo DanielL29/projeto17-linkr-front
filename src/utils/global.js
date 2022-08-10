@@ -10,12 +10,10 @@ function callToast(message, type) {
 
 function treatErrors(err) {
     if(err.response.data) {
-        callToast('Houve um erro ao publicar seu link', 'error')
         callToast(err.response.data, 'error')
     } else {
-        callToast('Houve um erro ao publicar seu link', 'error')
         callToast(err.response, 'error')
     }
 }
 
-export { treatErrors }
+export { treatErrors, callToast }

@@ -3,6 +3,15 @@ import styled from 'styled-components'
 export const TimelineWrapper = styled.div`
     margin: 0 auto;
     width: 611px;
+
+    > h1 {
+        font-size: 25px;
+        color: #fff;
+    }
+
+    @media screen and (max-width: 611px) {
+        width: 100%;
+    }
 `
 
 export const PublishCardWrapper = styled.div`
@@ -71,41 +80,19 @@ export const PublishCardWrapper = styled.div`
         font-size: 14px;
         color: #FFFFFF;
     }
-`
 
-export const PostCardWrapper = styled.div`
-    display: flex;
-
-    height: 276px;
-    background-color: #171717;
-    border-radius: 16px;
-    padding: 18px;
-
-    img {
-        min-width: 50px;
-        height: 50px;
-        border-radius: 26px;
-        margin-right: 18px;
-        object-fit: cover;
-    }
-
-    div {
-        display: flex;
-        flex-direction: column;
+    @media screen and (max-width: 611px) {
+        border-radius: 0;
         width: 100%;
-    }
+        display: flex;
+        justify-content: center;
 
-    h1 {
-        font-weight: 400;
-        font-size: 19px;
-        color: #fff;
-        margin-bottom: 10px;
-    }
+        img {
+            display: none;
+        }
 
-    p {
-        font-weight: 400;
-        font-size: 17px;
-        color: #B7B7B7;
-        margin-bottom: 10px;
+        h1 {
+            text-align: center;
+        }
     }
 `

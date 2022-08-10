@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const TimelineTitleWrapper = styled.div`
+export const PageTitleWrapper = styled.div`
     font-family: 'Oswald';
     font-weight: 700;
     font-size: 43px;
@@ -11,5 +11,6 @@ export const TimelineTitleWrapper = styled.div`
     @media screen and (max-width: 611px) {
         margin-top: 97px;
         margin-bottom: 20px;
+        margin-left: 17px;
     }
 `

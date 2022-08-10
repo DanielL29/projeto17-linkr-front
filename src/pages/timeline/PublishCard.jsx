@@ -2,20 +2,19 @@ import { useState } from "react"
 import { createPost } from "../../services/postService"
 import { PublishCardWrapper } from "./TimelineStyle"
 
-export default function PublishCard() {
+export default function PublishCard({ setPosts }) {
     const [post, setPost] = useState({ url: "", description: "" })
     const [publishing, setPublishing] = useState(false)
-    console.log(publishing)
 
-    async function publishPost(e) {
+    function publishPost(e) {
         e.preventDefault()
 
         setPublishing(true)
 
         if(post.description !== '') {
-            await createPost(post, setPost)
+            createPost(post, setPost, setPosts)
         } else {
-            await createPost({ url: post.url }, setPost)
+            createPost({ url: post.url }, setPost, setPosts)
         }
 
         setPublishing(false)
