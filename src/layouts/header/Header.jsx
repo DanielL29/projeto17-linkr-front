@@ -6,10 +6,11 @@ import brokenLink from '../../assets/images/broken-link.png'
 export default function Header() {
     const navigate = useNavigate()
     const matchHashtag = useMatch('/hashtag/:hashtag')
+    const matchUser = useMatch('/user/:id')
     const matchHome = useMatch('/home')
 
     function RenderHeader() {
-        if (matchHashtag || matchHome) {
+        if (matchHashtag || matchHome|| matchUser) {
             return (
                 <HeaderWrapper>
                     <h1 onClick={() => navigate('/')}>linkr</h1>
