@@ -16,7 +16,7 @@ export default function Header() {
     if (matchHashtag || matchHome || matchUser) {
       return (
         <HeaderWrapper>
-          <h1 onClick={() => navigate('/')}>linkr</h1>
+          <h1 onClick={() => navigate('/home')}>linkr</h1>
           <InputSearch />
           <ToggleLogout />
         </HeaderWrapper>

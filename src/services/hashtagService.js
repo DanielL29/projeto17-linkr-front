@@ -12,14 +12,4 @@ async function getHashtags(setHashtags) {
     }
 }
 
-async function getHashtagPosts(hashtag, setPosts) {
-    try {
-        const { data: hashtagPosts } = await axios.get(`${BASE_URL}/hashtags/${hashtag}`)
-
-        setPosts(hashtagPosts)
-    } catch (err) {
-        treatErrors(err)
-    }
-}
-
-export { getHashtags, getHashtagPosts }
+export { getHashtags }

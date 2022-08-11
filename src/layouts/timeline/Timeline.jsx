@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useState } from "react";
 import PageTitle from "../../components/page-title/PageTitle";
 import PublishCard from "../../pages/home/PublishCard";
-import { getHashtagPosts } from "../../services/hashtagService";
 import { getPosts } from "../../services/postService";
 import PostCard from "../post-card/PostCard";
 import { TimelineWrapper } from "./TimelineStyle";
@@ -19,11 +18,7 @@ export default function Timeline({ publish, title, hashtag }) {
     function loadPosts() {
         setLoading(true)
 
-        if (publish) {
-            getPosts(setPosts)
-        } else {
-            getHashtagPosts(hashtag, setPosts)
-        }
+        getPosts(setPosts, hashtag)
 
         setTimeout(() => setLoading(false), 1000)
     }

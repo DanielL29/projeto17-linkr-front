@@ -27,8 +27,8 @@ export default function Trending() {
     function renderSkeletonLoading() {
         let skeleton = new Array(9).fill(9)
 
-        return skeleton.map(() => 
-            <Skeleton baseColor="#444" style={{ width: '90%', marginLeft: '16px', height: '20px', marginBottom: '15px' }} />
+        return skeleton.map((_, i) => 
+            <Skeleton key={i} baseColor="#444" style={{ width: '90%', marginLeft: '16px', height: '20px', marginBottom: '15px' }} />
         )
     }
 
