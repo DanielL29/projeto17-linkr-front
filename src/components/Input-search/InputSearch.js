@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { AiOutlineSearch } from "react-icons/ai";
+import UserFound from "./UserFound";
 import styled from "styled-components";
 import axios from "axios";
-import UserFound from "./UserFound";
 
 export default function InputSearch() {
   const URL = process.env.REACT_APP_API_URL;
@@ -14,11 +14,9 @@ export default function InputSearch() {
 
   useEffect(() => {
     if (input.length !== 0) {
-      const userSearch = {
-        username: input,
-      };
+      
       const promise = axios.get(
-        `${URL}/search?username=${userSearch.username}`
+        `${URL}/search?username=${input}`
       );
 
       promise.then((response) => {
@@ -39,16 +37,16 @@ export default function InputSearch() {
   return (
     <Search>
       <DebounceInput
-        onBlur={() => setInput("")}
-        placeholder="Search for people 🔎"
+        onBlur={() => {
+          setResultSearch(false)
+        }}
+        placeholder="Search for people"
         minLength={3}
         debounceTimeout={300}
         onChange={(event) => setInput(event.target.value)}
       />
 
-      {/* {users.map((item, index) => {
-          <UserFound data={item} key={index}/>
-        })} */}
+      
       {resultSearch ? (
         <SearchResults>
           {users.map((item, index) => (
