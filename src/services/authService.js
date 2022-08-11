@@ -1,11 +1,10 @@
 import axios from "axios";
-import { BASE_URL } from "../constants";
 import { treatErrors } from "../utils/global";
+import { BASE_URL } from "./../constants";
 
 async function signup(newUser) {
     try {
-        const res = await axios.post(`${BASE_URL}/signup`, newUser);
-        return res;
+        await axios.post(`${BASE_URL}/signup`, newUser);
     } catch(err) {
         treatErrors(err);
     }
