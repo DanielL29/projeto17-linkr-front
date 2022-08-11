@@ -5,7 +5,7 @@ import Home from "./pages/home/Home";
 export default function Router() {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/hashtag/:hashtag" element={<Hashtag />} />
         </Routes>
     )

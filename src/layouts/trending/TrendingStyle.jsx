@@ -29,7 +29,7 @@ export const TrendingWrapper = styled.div`
 
     .hashtags {
         margin-top: 15px;
-        height: 325px;
+        height: 308px;
         overflow-y: scroll;
     }
 

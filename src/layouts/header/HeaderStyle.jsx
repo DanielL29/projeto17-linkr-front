@@ -22,3 +22,25 @@ export const HeaderWrapper = styled.div`
         cursor: pointer;
     }
 `
+
+export const PageNotFound = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    height: 100vh;
+
+    h1 {
+        margin-top: 20px;
+        font-family: 'Passion One';
+        font-size: 49px;
+        color: #fff;
+        align-items: center;
+    }
+
+    img {
+        height: 200px;
+        width: 200px;
+    }
+`
