@@ -1,33 +1,13 @@
 import ToggleLogout from "../toggle-logout/ToggleLogout";
-import { HeaderWrapper, PageNotFound } from "./HeaderStyle";
-import { useNavigate, useMatch } from 'react-router-dom';
-import brokenLink from '../../assets/images/broken-link.png'
+import InputSearch from "../../components/Input-search/InputSearch";
+import { HeaderWrapper } from "./HeaderStyle";
 
 export default function Header() {
-    const navigate = useNavigate()
-    const matchHashtag = useMatch('/hashtag/:hashtag')
-    const matchUser = useMatch('/user/:id')
-    const matchHome = useMatch('/home')
-
-    function RenderHeader() {
-        if (matchHashtag || matchHome|| matchUser) {
-            return (
-                <HeaderWrapper>
-                    <h1 onClick={() => navigate('/')}>linkr</h1>
-                    <ToggleLogout />
-                </HeaderWrapper>
-            )
-        }
-
-        return (
-            <PageNotFound>
-                <img src={brokenLink} alt="page not found" />
-                <h1>Oops! this page doesn't exists</h1>
-            </PageNotFound>
-        )
-    }
-
-    return (
-        <RenderHeader />
-    )
+  return (
+    <HeaderWrapper>
+      <h1>linkr</h1>
+      <InputSearch />
+      <ToggleLogout />
+    </HeaderWrapper>
+  );
 }
