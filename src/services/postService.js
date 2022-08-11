@@ -12,6 +12,7 @@ async function createPost(post, setPost, setPosts, setHashtags) {
         await getHashtags(setHashtags)
     } catch (err) {
         callToast('Houve um erro ao publicar seu link', 'error')
+        console.log(err)
         treatErrors(err)
     }
 }
