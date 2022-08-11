@@ -6,7 +6,7 @@ import UserPage from "./pages/userPage/UserPage";
 export default function Router() {
     return (
         <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path="/home" element={<Home />} />
             <Route path="/hashtag/:hashtag" element={<Hashtag />} />
             <Route path="/user/:id" element={<UserPage />} />
         </Routes>
