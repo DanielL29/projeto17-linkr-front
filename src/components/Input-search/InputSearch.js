@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
-import { AiOutlineSearch } from "react-icons/ai";
 import { BASE_URL } from "../../constants";
 import UserFound from "./UserFound";
 import styled from "styled-components";
