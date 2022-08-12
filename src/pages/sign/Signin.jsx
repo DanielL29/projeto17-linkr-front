@@ -18,7 +18,9 @@ export default function Signin() {
         e.preventDefault();
         setLoad(true);
         try {
-            await signin(user);
+            const {data} = await signin(user);
+            const token = JSON.stringify(`Bearer ${data}`);
+            localStorage.setItem("token", token);
             setLoad(false);
             navigate("/home", { replace: true });
         } catch(err) {
