@@ -31,12 +31,10 @@ const PresentationContainer = styled.div`
     }
 `;
 
-const SignupContainer = styled.form`
+const SignContainer = styled.form`
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    height: 48%;
     width: 40%;
     input, button {
         width: calc(45% + 150px);
@@ -48,6 +46,7 @@ const SignupContainer = styled.form`
         color: #9F9F9F;
         padding-left: 15px;
         opacity: ${props => props.load ? 0.6 : 1};
+        margin-bottom: 12px;
     }
     button {
         background-color: #1877F2;
@@ -66,4 +65,4 @@ const SignupContainer = styled.form`
 `;
 
 
-export { Container, PresentationContainer, SignupContainer};
+export { Container, PresentationContainer, SignContainer};

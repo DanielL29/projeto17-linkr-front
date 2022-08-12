@@ -3,11 +3,13 @@ import { treatErrors } from "../utils/global";
 import { BASE_URL, GET_USER_ENDPOINT } from "./../constants";
 
 async function signup(newUser) {
-    try {
-        await axios.post(`${BASE_URL}/signup`, newUser);
-    } catch(err) {
-        treatErrors(err);
-    }
+    const promise = await axios.post(`${BASE_URL}/signup`, newUser);
+    return promise;
+}
+
+async function signin(user) {
+    const promise = await axios.post(`${BASE_URL}/signin`, user);
+    return promise;
 }
 
 async function getUser(id) {
@@ -21,4 +23,4 @@ async function getUser(id) {
 
 }
 
-export { signup, getUser };
+export { signup, signin, getUser };
