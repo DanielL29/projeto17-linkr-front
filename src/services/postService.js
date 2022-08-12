@@ -17,9 +17,9 @@ async function createPost(post, setPost, setPosts, setHashtags) {
     }
 }
 
-async function getPosts(setPosts, hashtag) {
+async function getPosts(setPosts, hashtag, username) {
     try {
-        const { data: posts } = await axios.get(`${BASE_URL}/posts`, { params: { hashtag } })
+        const { data: posts } = await axios.get(`${BASE_URL}/posts`, { params: { hashtag, username } })
 
         setPosts(posts)
     } catch (err) {

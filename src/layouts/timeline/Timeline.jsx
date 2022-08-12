@@ -6,19 +6,19 @@ import { getPosts } from "../../services/postService";
 import PostCard from "../post-card/PostCard";
 import { TimelineWrapper } from "./TimelineStyle";
 
-export default function Timeline({ publish, title, hashtag }) {
+export default function Timeline({ publish, title, hashtag, username }) {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
 
     useEffect(() => {
         loadPosts()
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hashtag])
+    }, [hashtag, username])
 
     function loadPosts() {
         setLoading(true)
 
-        getPosts(setPosts, hashtag)
+        getPosts(setPosts, hashtag, username)
 
         setTimeout(() => setLoading(false), 1000)
     }

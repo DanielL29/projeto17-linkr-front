@@ -1,10 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-export default function UserFound({ data }) {
+export default function UserFound({ data, setResultSearch }) {
   const navigate = useNavigate();
-
+  
   function goToUserPage(){
+    setResultSearch(false);
     navigate(`/user/${data.id}`);
   }
  
@@ -35,7 +36,7 @@ const ContainerUsersFound = styled.div`
     width: 60px;
     height: 60px;
     border-radius: 50%;
-    margin-right: 20px;
+    margin-right: 10px;
   }
 
   span {

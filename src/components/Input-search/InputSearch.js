@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { AiOutlineSearch } from "react-icons/ai";
+import { BASE_URL } from "../../constants";
 import UserFound from "./UserFound";
 import styled from "styled-components";
 import axios from "axios";
 
 export default function InputSearch() {
-  const URL = process.env.REACT_APP_API_URL;
 
   const [input, setInput] = useState("");
   const [users, setUsers] = useState([{}]);
@@ -16,10 +16,11 @@ export default function InputSearch() {
     if (input.length !== 0) {
       
       const promise = axios.get(
-        `${URL}/search?username=${input}`
+        `${BASE_URL}/search?username=${input}`
       );
 
       promise.then((response) => {
+        console.log(response.data)
         if (response.data.length === 0) {
           //se a resposta for 0 então nao tem login APRESENTAR MENSAGEM DE USER NAO ENCONTRADO
           setResultSearch(false);
@@ -32,14 +33,11 @@ export default function InputSearch() {
         console.log(err);
       });
     }
-  }, [input, URL]);
+  }, [input]);
 
   return (
     <Search>
       <DebounceInput
-        onBlur={() => {
-          setResultSearch(false)
-        }}
         placeholder="Search for people"
         minLength={3}
         debounceTimeout={300}
@@ -50,7 +48,7 @@ export default function InputSearch() {
       {resultSearch ? (
         <SearchResults>
           {users.map((item, index) => (
-            <UserFound data={item} key={index} />
+            <UserFound data={item} key={index} setResultSearch={setResultSearch}/>
           ))}
         </SearchResults>
       ) : (

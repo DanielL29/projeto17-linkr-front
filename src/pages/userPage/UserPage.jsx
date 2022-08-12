@@ -1,19 +1,19 @@
-import { Container } from "./userStyle";
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
 import Timeline from "../../layouts/timeline/Timeline";
 import Trending from "../../layouts/trending/Trending";
-import axios from "axios";
+import { Container } from "../home/HomeStyle";
+import { ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { BASE_URL } from "../../constants";
 
 export default function UserPage() {
   const { id } = useParams();
-  const URL = process.env.REACT_APP_API_URL;
   const [userData, setUserData] = useState([{}]);
 
   useEffect(() => {
-    const promise = axios.get(`${URL}/user/${id}`);
+    const promise = axios.get(`${BASE_URL}/user/${id}`);
 
     promise.then((response) => {
       setUserData(response.data);
@@ -21,19 +21,18 @@ export default function UserPage() {
     promise.catch((err) => {
       console.log(err);
     });
-  }, [URL, id, setUserData]);
-
-  console.log(userData)
+  }, [id]);
+  
   return (
     <Container>
       {userData.length !== 0 ? (
         <div>
-          <Timeline title={`${userData[0].username}'s Posts`} publish />
+          <Timeline title={`${userData[0].username}'s Posts`} username={id} />
           <Trending />
         </div>
       ) : (
         <div> 
-            <h1>Este usuário não tem nenhum post...</h1>
+            <span>Este usuário não tem nenhum post...</span>
         </div>
       )}
 
