@@ -10,8 +10,10 @@ export default function UserPage() {
 
   return (
     <Container>
+      <div>
         <Timeline title={"Username's Posts"} username={id} />
         <Trending />
+      </div>
       <ToastContainer />
     </Container>
   );
