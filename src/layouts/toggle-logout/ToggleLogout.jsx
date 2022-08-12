@@ -1,9 +1,16 @@
 import { ToggleLogoutWrapper } from "./ToggleLogoutStyle";
 import { RiArrowDownSLine, RiArrowUpSLine } from 'react-icons/ri'
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function ToggleLogout() {
     const [toggleArrow, setToggleArrow] = useState(false)
+    const navigate = useNavigate();
+
+    function logout() {
+        localStorage.removeItem("token");
+        navigate("/", { replace: true });
+    }
 
     return (
         <ToggleLogoutWrapper toggle={toggleArrow}>
@@ -14,7 +21,7 @@ export default function ToggleLogout() {
                 }
                 <img src="https://http.cat/422.jpg" alt="user" />
             </div>
-            <div className="logout">Logout</div>
+            <div onClick={logout} className="logout">Logout</div>
         </ToggleLogoutWrapper>
     )
 }
