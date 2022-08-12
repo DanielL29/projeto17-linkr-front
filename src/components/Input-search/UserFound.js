@@ -13,7 +13,7 @@ export default function UserFound({ data, setResultSearch }) {
     <ContainerUsersFound onClick={() => goToUserPage()}>
         <div>
           <img src={data.pictureUrl} alt="Imagem de perfil" />
-          <span>{data.username}</span>
+          <span>{data.lower}</span>
         </div>
     </ContainerUsersFound>
   );

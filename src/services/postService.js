@@ -1,27 +1,21 @@
 import axios from 'axios'
-import { BASE_URL } from '../constants'
-import { treatErrors, callToast } from '../utils/global'
-import { getHashtags } from './hashtagService'
+import { POSTS_ENDPOINT } from '../constants'
+import { callToast, treatErrors } from '../utils/global'
 
-async function createPost(post, setPost, setPosts, setHashtags) {
+async function createPost(post) {
     try {
-        await axios.post(`${BASE_URL}/posts`, post)
-
-        setPost({ url: '', description: '' })
-        await getPosts(setPosts)
-        await getHashtags(setHashtags)
+        await axios.post(POSTS_ENDPOINT, post)
     } catch (err) {
         callToast('Houve um erro ao publicar seu link', 'error')
-        console.log(err)
         treatErrors(err)
     }
 }
 
-async function getPosts(setPosts, hashtag, username) {
+async function getPosts(hashtag, username) {
     try {
-        const { data: posts } = await axios.get(`${BASE_URL}/posts`, { params: { hashtag, username } })
+        const response = axios.get(POSTS_ENDPOINT, { params: { hashtag, username } })
 
-        setPosts(posts)
+        return response
     } catch (err) {
         treatErrors(err)
     }

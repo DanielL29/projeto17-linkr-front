@@ -82,6 +82,7 @@ export const UrlMetadataWrapper = styled.div`
         font-size: 11px;
         color: #CECECE;
         margin-bottom: 23px;
+        word-break: break-word;
     }
 
     h4:hover {

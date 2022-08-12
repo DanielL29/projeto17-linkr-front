@@ -1,12 +1,12 @@
 import axios from "axios";
-import { BASE_URL } from "../constants";
+import { HASHTAGS_ENDPOINT } from "../constants";
 import { treatErrors } from "../utils/global";
 
-async function getHashtags(setHashtags) {
+async function getHashtags() {
     try {
-        const { data: hashtags } = await axios.get(`${BASE_URL}/hashtags`)
-
-        setHashtags(hashtags)
+        const response = axios.get(HASHTAGS_ENDPOINT)
+        
+        return response
     } catch (err) {
         treatErrors(err)
     }
