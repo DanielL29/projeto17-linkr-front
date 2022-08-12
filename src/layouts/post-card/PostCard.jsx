@@ -5,12 +5,15 @@ import { ReactTagify } from "react-tagify";
 import { PostCardWrapper, UrlMetadataWrapper } from "./PostCardStyle";
 
 
-export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading }) {
+export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl }) {
     const navigate = useNavigate()
 
     return (
         <PostCardWrapper>
-            {loading ? <Skeleton baseColor="#444" style={{ width: '50px', height: '50px', borderRadius: '100%', marginRight: '17px' }} /> : <img src="https://http.cat/422.jpg" alt="user" />}
+            {loading ? 
+                <Skeleton baseColor="#444" style={{ width: '50px', height: '50px', borderRadius: '100%', marginRight: '17px' }} /> : 
+                <img src={pictureUrl} alt="user" />
+            }
             <div>
                 <h1>{loading ? <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : username}</h1>
                 {loading ?
