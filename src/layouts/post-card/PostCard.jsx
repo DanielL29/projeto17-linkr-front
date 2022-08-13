@@ -7,7 +7,7 @@ import { BsPencilFill, BsFillTrash2Fill } from "react-icons/bs";
 import { PostCardWrapper, UrlMetadataWrapper, HeaderPosts } from "./PostCardStyle";
 
 
-export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl }) {
+export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl, ownerId }) {
     const navigate = useNavigate()
 
     return (
@@ -17,10 +17,10 @@ export default function PostCard({ username, description, url, urlImage, urlDesc
                 <img src={pictureUrl} alt="user" />
             }
             <div>
-                <HeaderPosts><h1>{loading ? <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : username}</h1>
+                <HeaderPosts><h1 onClick={() => navigate(`/user/${ownerId}`) } >{loading ? <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : username}</h1>
                     <div>
                         <BsPencilFill className="icon"/>
-                        <BsFillTrash2Fill className="icon"/>
+                        <BsFillTrash2Fill  onClick={() => window.alert("Feature: Ainda em fase de desenvolvimento")}  className="icon"/>
                     </div>
                 </HeaderPosts>
                 {loading ?
