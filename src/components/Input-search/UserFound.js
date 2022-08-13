@@ -37,6 +37,7 @@ const ContainerUsersFound = styled.div`
     height: 60px;
     border-radius: 50%;
     margin-right: 10px;
+    margin-left: 10px;
   }
 
   span {

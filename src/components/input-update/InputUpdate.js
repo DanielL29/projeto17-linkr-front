@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { BASE_URL, AUTH_CONFIG } from "../../constants";
 import axios from "axios";
+import { BASE_URL, AUTH_CONFIG } from "../../constants";
 import { useState, useRef, useEffect } from "react";
 import { getPosts } from "../../services/postService";
 import { callToast, treatErrors } from "../../utils/global";
@@ -26,34 +26,25 @@ export const InputUpdate = ({ description, setUpdate, postId }) => {
       setDisabled(true);
 
       try {
+        console.log(
         await axios.patch(
           `${BASE_URL}/posts/${postId}`,
           {
             description: inputValue,
           },
           AUTH_CONFIG
-        );
+        ));
         setDisabled(false);
         setUpdate(false);
         await getPosts();
-      } catch (error) {
+      } catch (err) {
         setDisabled(false);
         inputRef.current?.focus();
+        callToast("Houve um erro ao editar o seu post", "error");
+        treatErrors(err);
       }
     }
   }
-  // try {
-  //   await axios.delete(`${BASE_URL}/posts/${postId}`, AUTH_CONFIG);
-  //   const teste = await getPosts();
-  //   setLoadingDelete(false);
-  //   setShowModal(false);
-  //   console.log(teste)
-
-  // } catch (err) {
-  //   setLoadingDelete(false);
-  //   callToast('Houve um erro ao deleter o seu post', 'error');
-  //   treatErrors(err);
-  // }
 
   return (
     <Container>
@@ -61,8 +52,8 @@ export const InputUpdate = ({ description, setUpdate, postId }) => {
         disabled={disabled}
         type="text"
         ref={inputRef}
-        onKeyDown={(e) => UpdatingValueInput(e)}
         onChange={(e) => setInputValue(e.target.value)}
+        onKeyDown={(e) => UpdatingValueInput(e)}
       />
     </Container>
   );
