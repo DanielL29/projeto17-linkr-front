@@ -2,10 +2,12 @@ import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { useNavigate } from "react-router-dom";
 import { ReactTagify } from "react-tagify";
-import { PostCardWrapper, UrlMetadataWrapper } from "./PostCardStyle";
+import { BsPencilFill, BsFillTrash2Fill } from "react-icons/bs";
+
+import { PostCardWrapper, UrlMetadataWrapper, HeaderPosts } from "./PostCardStyle";
 
 
-export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl }) {
+export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl, ownerId }) {
     const navigate = useNavigate()
 
     return (
@@ -15,7 +17,12 @@ export default function PostCard({ username, description, url, urlImage, urlDesc
                 <img src={pictureUrl} alt="user" />
             }
             <div>
-                <h1>{loading ? <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : username}</h1>
+                <HeaderPosts><h1 onClick={() => navigate(`/user/${ownerId}`) } >{loading ? <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : username}</h1>
+                    <div>
+                        <BsPencilFill className="icon"/>
+                        <BsFillTrash2Fill  onClick={() => window.alert("Feature: Ainda em fase de desenvolvimento")}  className="icon"/>
+                    </div>
+                </HeaderPosts>
                 {loading ?
                     <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : (
                     <ReactTagify
