@@ -1,106 +1,134 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
-export const PostCardWrapper = styled.div`
-    display: flex;
-
-    min-height: 276px;
-    background-color: #171717;
-    border-radius: 16px;
-    padding: 18px;
-    margin-bottom: 16px;
-
-    img {
-        min-width: 50px;
-        height: 50px;
-        border-radius: 26px;
-        margin-right: 18px;
-        object-fit: cover;
-    }
-
-    > div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        width: 100%;
-    }
-
-    h1 {
-        font-weight: 400;
-        font-size: 19px;
-        color: #fff;
-        margin-bottom: 10px;
-    }
-
-    p {
-        font-weight: 400;
-        font-size: 17px;
-        color: #B7B7B7;
-        margin-bottom: 10px;
-    }
-
-    @media screen and (max-width: 611px) {
-        border-radius: 0;
-        min-height: 232px;
-    }
-`
-
-export const UrlMetadataWrapper = styled.div`
+export const HeaderPosts = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  div {
+    width: 60px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
 
-    height: 155px;
-    border: 1px solid #4D4D4D;
-    border-radius: 11px;
-    cursor: pointer;
-
-    div {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-
-        padding: 20px;
-        height: 100%;
-        width: 70%;
+}
+.icon {
+    font-size: 20px;
+    color: #fafafa;
+    
+    :hover{
+        cursor: pointer;
+        font-size: 22px;
     }
+  }
+`;
 
-    h2 {
-        font-weight: 400;
-        font-size: 16px;
-        color: #CECECE;
-        margin-bottom: 15px;
-    }
+export const PostCardWrapper = styled.div`
+  display: flex;
 
-    h3 {
-        font-weight: 400;
-        font-size: 11px;
-        color: #9B9595;
-        margin-bottom: 13px;
-    }
+  min-height: 276px;
+  background-color: #171717;
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
 
-    h4 {
-        font-weight: 400;
-        font-size: 11px;
-        color: #CECECE;
-        margin-bottom: 23px;
-        word-break: break-word;
-    }
+  img {
+    min-width: 50px;
+    height: 50px;
+    border-radius: 26px;
+    margin-right: 18px;
+    object-fit: cover;
+  }
 
-    h4:hover {
-        text-decoration: underline;
+  > div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  h1 {
+    font-weight: 400;
+    font-size: 19px;
+    color: #fff;
+    margin-bottom: 10px;
+    text-transform: capitalize;
+
+    :hover {
+      cursor: pointer;
+      font-weight: 600;
     }
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 17px;
+    color: #b7b7b7;
+    margin-bottom: 10px;
+  }
+
+  @media screen and (max-width: 611px) {
+    border-radius: 0;
+    min-height: 232px;
+  }
+`;
+
+export const UrlMetadataWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+
+  height: 155px;
+  border: 1px solid #4d4d4d;
+  border-radius: 11px;
+  cursor: pointer;
+
+  div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    padding: 20px;
+    height: 100%;
+    width: 70%;
+  }
+
+  h2 {
+    font-weight: 400;
+    font-size: 16px;
+    color: #cecece;
+    margin-bottom: 15px;
+  }
+
+  h3 {
+    font-weight: 400;
+    font-size: 11px;
+    color: #9b9595;
+    margin-bottom: 13px;
+  }
+
+  h4 {
+    font-weight: 400;
+    font-size: 11px;
+    color: #cecece;
+    margin-bottom: 23px;
+    word-break: break-word;
+  }
+
+  h4:hover {
+    text-decoration: underline;
+  }
+
+  img {
+    width: 153px;
+    height: 100%;
+    border-radius: 0px 12px 12px 0px;
+    margin-right: 0;
+  }
+
+  @media screen and (max-width: 611px) {
+    height: auto;
 
     img {
-        width: 153px;
-        height: 100%;
-        border-radius: 0px 12px 12px 0px;
-        margin-right: 0;
+      width: 40%;
     }
-
-    @media screen and (max-width: 611px) {
-        height: auto;
-
-        img {
-            width: 40%;
-        }
-    }
-`
+  }
+`;
