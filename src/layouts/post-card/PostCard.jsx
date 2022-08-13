@@ -9,7 +9,7 @@ import { useState } from "react";
 import { Modal } from "../../components/ModalDelete/Modal";
 
 
-export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl, ownerId }) {
+export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl, ownerId, postId }) {
     const navigate = useNavigate()
 
     const [showModal, setShowModal] = useState(false);
@@ -17,7 +17,7 @@ export default function PostCard({ username, description, url, urlImage, urlDesc
     const openModal = () => {
         setShowModal( state => !state)
     }
-
+    
 
     return (
         <PostCardWrapper>
@@ -32,7 +32,7 @@ export default function PostCard({ username, description, url, urlImage, urlDesc
                         <BsFillTrash2Fill  onClick={openModal}  className="icon"/>
                     </div>
                 </HeaderPosts>
-                <Modal  showModal={showModal} setShowModal={setShowModal} />
+                <Modal  showModal={showModal} setShowModal={setShowModal} postId={postId}/>
                 {loading ?
                     <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : (
                     <ReactTagify

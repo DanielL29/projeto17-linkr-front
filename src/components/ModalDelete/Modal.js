@@ -1,17 +1,63 @@
 import styled from "styled-components";
+import { RotatingLines } from "react-loader-spinner";
+import { BASE_URL, AUTH_CONFIG } from "../../constants";
+import axios from "axios";
+import { useState } from "react";
+import { getPosts } from "../../services/postService";
+import { callToast, treatErrors } from "../../utils/global";
 
-export const Modal = ({ showModal, setShowModal }) => {
+export const Modal = ({ showModal, setShowModal, postId }) => {
+  const [loadingDelete, setLoadingDelete] = useState(false);
+
+  const closeModal = () => {
+    setShowModal((state) => !state);
+  };
+
+  async function sendDeleteToApi() {
+    setLoadingDelete(true);
+
+    try {
+      await axios.delete(`${BASE_URL}/posts/${postId}`, AUTH_CONFIG);
+      const teste = await getPosts();
+      setLoadingDelete(false);
+      setShowModal(false);
+      console.log(teste)
+      
+    } catch (err) {
+      setLoadingDelete(false);
+      callToast('Houve um erro ao deleter o seu post', 'error');
+      treatErrors(err);
+    }     
+ 
+  }
   return (
     <>
       {showModal ? (
         <Container>
           <ModalWrapper>
             <ModalContent>
-              <h3>Are you sure you want to delete this post?</h3>
-              <div>
-                <button>No, go back</button>
-                <button>Yes, delete it</button>
-              </div>
+              {loadingDelete ? (
+                <>
+                  <RotatingLines
+                    strokeColor="#1877f2"
+                    strokeWidth="5"
+                    animationDuration="1.75"
+                    width="96"
+                    visible={true}
+                  />
+                  <span>Aguarde estou deletando seu Post...</span>
+                </>
+              ) : (
+                <>
+                  <h3>Are you sure you want to delete this post?</h3>
+                  <div>
+                    <button onClick={closeModal}>No, go back</button>
+                    <button onClick={() => sendDeleteToApi()}>
+                      Yes, delete it
+                    </button>
+                  </div>
+                </>
+              )}
             </ModalContent>
           </ModalWrapper>
         </Container>
@@ -48,7 +94,12 @@ const ModalContent = styled.div`
   flex-direction: column;
   align-items: center;
   justify-items: center;
-
+  span {
+    margin-top: 20px;
+    font-size: 14px;
+    font-family: "Lato";
+    color: #ffffff;
+  }
   h3 {
     color: white;
     font-size: 22px;
@@ -58,7 +109,6 @@ const ModalContent = styled.div`
     margin-top: 40px;
     width: 100%;
     display: flex;
-    justify-content: space-evenly;
     align-items: center;
     flex-direction: row;
 
@@ -66,6 +116,7 @@ const ModalContent = styled.div`
       font-weight: 500;
       font-family: "Lato";
       color: #ffffff;
+      margin-left: 10px;
       background-color: #1877f2;
     }
   }
@@ -78,6 +129,7 @@ const ModalContent = styled.div`
     color: #1877f2;
     font-family: "Lato";
     font-weight: 500;
+
     cursor: pointer;
   }
 `;
