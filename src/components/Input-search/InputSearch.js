@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { DebounceInput } from "react-debounce-input";
-import { BASE_URL } from "../../constants";
+import { AUTH_CONFIG, BASE_URL } from "../../constants";
 import UserFound from "./UserFound";
 import styled from "styled-components";
 import axios from "axios";
@@ -15,7 +15,8 @@ export default function InputSearch() {
     if (input.length !== 0) {
       
       const promise = axios.get(
-        `${BASE_URL}/search?username=${input}`
+        `${BASE_URL}/search?username=${input}`,
+        AUTH_CONFIG
       );
 
       promise.then((response) => {

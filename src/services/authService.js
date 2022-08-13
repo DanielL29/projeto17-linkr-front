@@ -1,6 +1,6 @@
 import axios from "axios";
 import { treatErrors } from "../utils/global";
-import { BASE_URL, GET_USER_ENDPOINT } from "./../constants";
+import { BASE_URL, GET_USER_ENDPOINT, AUTH_CONFIG } from "./../constants";
 
 async function signup(newUser) {
     const promise = await axios.post(`${BASE_URL}/signup`, newUser);
@@ -14,7 +14,7 @@ async function signin(user) {
 
 async function getUser(id) {
     try {
-        const response = axios.get(GET_USER_ENDPOINT(id))
+        const response = axios.get(GET_USER_ENDPOINT(id), AUTH_CONFIG)
         
         return response
     } catch (err) {

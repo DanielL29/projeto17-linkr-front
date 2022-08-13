@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PageTitle from "../../components/page-title/PageTitle";
 import PublishCard from "../../pages/home/PublishCard";
 import { loadPosts } from "../../utils/timeline";

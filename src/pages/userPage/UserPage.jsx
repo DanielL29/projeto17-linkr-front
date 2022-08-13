@@ -14,7 +14,7 @@ export default function UserPage() {
   useEffect(() => {
     loadUser(id, setUser)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [id])
 
   return (
     <Container>
