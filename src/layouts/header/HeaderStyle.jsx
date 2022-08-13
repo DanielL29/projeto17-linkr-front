@@ -2,6 +2,7 @@ import styled from 'styled-components'
 
 export const HeaderWrapper = styled.div`
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
 
@@ -21,6 +22,16 @@ export const HeaderWrapper = styled.div`
         font-family: 'Passion One';
         cursor: pointer;
     }
+
+    @media screen and (max-width: 611px) {
+     display: flex;
+     flex-wrap: wrap;
+     flex-direction: column;
+     align-items: center;
+     justify-content: space-between;
+     min-height: 150px;
+     
+  }
 `
 
 export const PageNotFound = styled.div`
