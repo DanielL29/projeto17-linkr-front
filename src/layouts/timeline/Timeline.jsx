@@ -30,6 +30,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                             urlDescription={post.urlDescription}
                             urlImage={post.urlImage}
                             ownerId={post.ownerId}
+                            postId={post.id}
                             loading={loading}
                         />
                     )
