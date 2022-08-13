@@ -5,10 +5,19 @@ import { ReactTagify } from "react-tagify";
 import { BsPencilFill, BsFillTrash2Fill } from "react-icons/bs";
 
 import { PostCardWrapper, UrlMetadataWrapper, HeaderPosts } from "./PostCardStyle";
+import { useState } from "react";
+import { Modal } from "../../components/ModalDelete/Modal";
 
 
 export default function PostCard({ username, description, url, urlImage, urlDescription, urlTitle, loading, pictureUrl, ownerId }) {
     const navigate = useNavigate()
+
+    const [showModal, setShowModal] = useState(false);
+
+    const openModal = () => {
+        setShowModal( state => !state)
+    }
+
 
     return (
         <PostCardWrapper>
@@ -20,9 +29,10 @@ export default function PostCard({ username, description, url, urlImage, urlDesc
                 <HeaderPosts><h1 onClick={() => navigate(`/user/${ownerId}`) } >{loading ? <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : username}</h1>
                     <div>
                         <BsPencilFill className="icon"/>
-                        <BsFillTrash2Fill  onClick={() => window.alert("Feature: Ainda em fase de desenvolvimento")}  className="icon"/>
+                        <BsFillTrash2Fill  onClick={openModal}  className="icon"/>
                     </div>
                 </HeaderPosts>
+                <Modal  showModal={showModal} setShowModal={setShowModal} />
                 {loading ?
                     <Skeleton baseColor="#444" style={{ width: '100%', height: '20px' }} /> : (
                     <ReactTagify
