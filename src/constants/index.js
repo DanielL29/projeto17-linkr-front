@@ -1,6 +1,5 @@
 const BASE_URL = process.env.REACT_APP_API_URL
 
-// auth/user
 const GET_USER_ENDPOINT = (id) => `${BASE_URL}/users/${id}`
 const AUTH_CONFIG = {
     headers: {
@@ -8,10 +7,14 @@ const AUTH_CONFIG = {
     }
 }
 
-// hashtags
 const HASHTAGS_ENDPOINT = `${BASE_URL}/hashtags`
 
-// posts
 const POSTS_ENDPOINT = `${BASE_URL}/posts`
 
-export { BASE_URL, GET_USER_ENDPOINT, HASHTAGS_ENDPOINT, POSTS_ENDPOINT, AUTH_CONFIG }
+const LIKES_ENDPOINT = `${BASE_URL}/likes`;
+
+const LIKE_ENDPOINT = `${BASE_URL}/like`;
+
+const DISLIKE_ENDPOINT = (id) => `${BASE_URL}/dislike/${id}`;
+
+export { BASE_URL, GET_USER_ENDPOINT, HASHTAGS_ENDPOINT, POSTS_ENDPOINT, AUTH_CONFIG, LIKES_ENDPOINT, LIKE_ENDPOINT, DISLIKE_ENDPOINT };

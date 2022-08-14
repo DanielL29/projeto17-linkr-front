@@ -7,10 +7,11 @@ export default function PublishCard({ setPosts }) {
     const [post, setPost] = useState({ url: "", description: "" })
     const [publishing, setPublishing] = useState(false)
     const { setHashtags } = useContext(HashtagContext)
+    const pictureUrl = localStorage.getItem("pictureUrl");
 
     return (
         <PublishCardWrapper>
-            <img src="https://http.cat/422.jpg" alt="user" />
+            <img src={pictureUrl} alt="user" />
             <form onSubmit={(e) => publishPost(e, setPublishing, post, setPost, setPosts, setHashtags)}>
                 <h1>What are you going to share today?</h1>
                 <input type="text" name="url" value={post.url}

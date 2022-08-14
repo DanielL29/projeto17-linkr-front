@@ -1,18 +1,31 @@
 import { useEffect, useState } from "react";
 import PageTitle from "../../components/page-title/PageTitle";
 import PublishCard from "../../pages/home/PublishCard";
-import { loadPosts } from "../../utils/timeline";
+import { dislikePost, likePost } from "../../services/postService";
+import { loadLikes, loadPosts } from "../../utils/timeline";
 import PostCard from "../post-card/PostCard";
 import { TimelineWrapper } from "./TimelineStyle";
 
 export default function Timeline({ publish, title, hashtag, username, pictureUrl }) {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
+    const [userLikes, setUserLikes] = useState([]);
 
     useEffect(() => {
         loadPosts(setLoading, setPosts, hashtag, username)
+        loadLikes(setUserLikes, setLoading);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag, username])
+
+    async function handleLike(postId) {
+        if(userLikes.length === 1) {
+            await dislikePost(postId);
+            loadLikes(setUserLikes, setLoading);
+        } else {
+            await likePost(postId);
+            loadLikes(setUserLikes, setLoading);
+        }  
+    }
 
     return (
         <TimelineWrapper>
@@ -31,7 +44,9 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                             urlImage={post.urlImage}
                             ownerId={post.ownerId}
                             postId={post.id}
+                            liked={userLikes.filter(like => like.postId === post.id)}
                             loading={loading}
+                            handleLike={handleLike}
                         />
                     )
                     : <h1>There are no posts yet</h1>

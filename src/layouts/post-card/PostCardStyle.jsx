@@ -32,10 +32,9 @@ export const PostCardWrapper = styled.div`
   margin-bottom: 16px;
 
   img {
-    min-width: 50px;
+    width: 50px;
     height: 50px;
     border-radius: 26px;
-    margin-right: 18px;
     object-fit: cover;
   }
 
@@ -130,5 +129,21 @@ export const UrlMetadataWrapper = styled.div`
     img {
       width: 40%;
     }
+  }
+`;
+
+export const UserContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 50px;
+  height: 90px;
+  margin-right: 18px;
+  svg {
+    font-size: 20px;
+    color: #FFFFFF;
+  }
+  svg:hover {
+    cursor: pointer;
   }
 `;
