@@ -91,7 +91,7 @@ const SearchResults = styled.div`
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
   background-color: #e7e7e7e7;
 
-  @media screen and (max-width: 611px) {
+  @media screen and (max-width: 670px) {
     min-width: 390px;
   }
 `;
@@ -125,7 +125,7 @@ const Search = styled.div`
     background-color: #ffffff;
   }
 
-  @media screen and (max-width: 611px) {
+  @media screen and (max-width: 670px) {
     position: relative;
     input {
       position: absolute;

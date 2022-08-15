@@ -1,14 +1,19 @@
 import styled from "styled-components";
 import axios from "axios";
 import { BASE_URL, AUTH_CONFIG } from "../../constants";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useContext } from "react";
 import { getPosts } from "../../services/postService";
 import { callToast, treatErrors } from "../../utils/global";
+import { useParams } from "react-router-dom";
+import HashtagContext from "../../contexts/HashtagContext";
+import { getHashtags } from "../../services/hashtagService";
 
-export const InputUpdate = ({ description, setUpdate, postId }) => {
+export const InputUpdate = ({ description, setUpdate, postId, setPosts }) => {
   const [inputValue, setInputValue] = useState("");
   const [disabled, setDisabled] = useState(false);
   const inputRef = useRef();
+  const { username, hashtag } = useParams()
+  const { setHashtags } = useContext(HashtagContext)
 
   useEffect(() => {
     inputRef.current.value = description;
@@ -36,7 +41,12 @@ export const InputUpdate = ({ description, setUpdate, postId }) => {
         ));
         setDisabled(false);
         setUpdate(false);
-        await getPosts();
+
+        const { data: posts } = await getPosts(hashtag, username);
+        const { data: hashtags } = await getHashtags()
+
+        setPosts(posts)
+        setHashtags(hashtags)
       } catch (err) {
         setDisabled(false);
         inputRef.current?.focus();

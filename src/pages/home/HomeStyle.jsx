@@ -22,7 +22,7 @@ export const Container = styled.div`
 
     @media screen and (max-width: 611px) {
         > div:first-child {
-            margin-top: 97px;
+            margin-top: 180px;
             width: 100%;
         }
     }

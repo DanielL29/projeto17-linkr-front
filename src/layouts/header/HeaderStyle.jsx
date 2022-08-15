@@ -23,14 +23,13 @@ export const HeaderWrapper = styled.div`
         cursor: pointer;
     }
 
-    @media screen and (max-width: 611px) {
+    @media screen and (max-width: 670px) {
      display: flex;
      flex-wrap: wrap;
      flex-direction: column;
      align-items: center;
      justify-content: space-between;
      min-height: 150px;
-     
   }
 `
 
