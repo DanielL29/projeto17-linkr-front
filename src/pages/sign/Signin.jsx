@@ -18,9 +18,11 @@ export default function Signin() {
         e.preventDefault();
         setLoad(true);
         try {
-            const {data} = await signin(user);
-            const userLocal = JSON.stringify(data);
-            localStorage.setItem("userLocal", userLocal);
+            const { data } = await signin(user);
+            const token = JSON.stringify(`Bearer ${data.token}`);
+            localStorage.setItem("token", token);
+            localStorage.setItem("userId", data.id);
+            localStorage.setItem("pictureUrl", data.pictureUrl);
             setLoad(false);
             navigate("/home", { replace: true });
         } catch(err) {

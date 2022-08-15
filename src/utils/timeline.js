@@ -1,14 +1,19 @@
-import { getHashtags } from "../services/hashtagService"
-import { createPost, getPosts } from "../services/postService"
+import { getHashtags } from "./../services/hashtagService"
+import { createPost, getPosts, getLikes } from "./../services/postService"
 
 async function loadPosts(setLoading, setPosts, hashtag, username) {
     setLoading(true)
 
     const { data: posts } = await getPosts(hashtag, username)
-
+    
     setPosts(posts)
-
+    
     setTimeout(() => setLoading(false), 1000)
+}
+
+async function loadLikes(setUserLikes) {
+    const { data: likes } = await getLikes();
+    setUserLikes(likes);
 }
 
 async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtags) {
@@ -32,4 +37,4 @@ async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtag
     setTimeout(() => { setPublishing(false) }, 1000)
 }
 
-export { loadPosts, publishPost }
+export { loadPosts, publishPost, loadLikes }

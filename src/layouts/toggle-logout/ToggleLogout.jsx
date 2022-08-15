@@ -7,9 +7,10 @@ import { USER_PICTURE } from "../../constants";
 export default function ToggleLogout() {
     const [toggleArrow, setToggleArrow] = useState(false)
     const navigate = useNavigate();
+    const pictureUrl = localStorage.getItem("pictureUrl");
 
     function logout() {
-        localStorage.removeItem("token");
+        localStorage.clear();
         navigate("/", { replace: true });
     }
 
@@ -20,7 +21,8 @@ export default function ToggleLogout() {
                     <RiArrowUpSLine cursor="pointer" fontSize="45px" onClick={() => setToggleArrow(false)} /> : 
                     <RiArrowDownSLine cursor="pointer" fontSize="45px" onClick={() => setToggleArrow(true)} />
                 }
-                <img src={USER_PICTURE} alt="user" />
+                <img src={pictureUrl} alt="user" />
+
             </div>
             <div onClick={logout} className="logout">Logout</div>
         </ToggleLogoutWrapper>

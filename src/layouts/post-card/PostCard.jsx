@@ -2,12 +2,13 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
 import { ReactTagify } from "react-tagify";
-import { BsPencilFill, BsFillTrash2Fill } from "react-icons/bs";
+import { BsPencilFill, BsFillTrash2Fill, BsHeart, BsHeartFill } from "react-icons/bs";
 
 import {
   PostCardWrapper,
   UrlMetadataWrapper,
   HeaderPosts,
+  UserContainer,
 } from "./PostCardStyle";
 
 import { useState } from "react";
@@ -25,6 +26,8 @@ export default function PostCard({
   pictureUrl,
   ownerId,
   postId,
+  liked,
+  handleLike
   userPost,
   setPosts
 }) {
@@ -41,12 +44,17 @@ export default function PostCard({
     setUpdate((state) => !state);
   };
 
+
+
   return (
     <PostCardWrapper>
       {loading ? (
         <Skeleton baseColor="#444" style={{ width: "50px", height: "50px", borderRadius: "100%", marginRight: "17px" }} />
       ) : (
+      <UserContainer>
         <img className="likes" src={pictureUrl} alt="user" />
+        <div onClick={() => handleLike(postId)}>{liked.length === 1 ? <BsHeartFill color="#AC0000" /> : <BsHeart /> }</div>
+      </UserContainer>
       )}
       <div className="content">
         <HeaderPosts>
