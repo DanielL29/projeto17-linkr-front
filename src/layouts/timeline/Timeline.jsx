@@ -10,20 +10,21 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [userLikes, setUserLikes] = useState([]);
+    const [likes, setLikes] = useState([]);
 
     useEffect(() => {
         loadPosts(setLoading, setPosts, hashtag, username)
-        loadLikes(setUserLikes, setLoading);
+        loadLikes(setUserLikes, setLikes);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag, username])
 
     async function handleLike(postId) {
         if(userLikes.length === 1) {
             await dislikePost(postId);
-            loadLikes(setUserLikes, setLoading);
+            loadLikes(setUserLikes, setLikes);
         } else {
             await likePost(postId);
-            loadLikes(setUserLikes, setLoading);
+            loadLikes(setUserLikes, setLikes);
         }  
     }
 

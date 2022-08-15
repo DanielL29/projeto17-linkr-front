@@ -11,9 +11,10 @@ async function loadPosts(setLoading, setPosts, hashtag, username) {
     setTimeout(() => setLoading(false), 1000)
 }
 
-async function loadLikes(setUserLikes) {
-    const { data: likes } = await getLikes();
-    setUserLikes(likes);
+async function loadLikes(setUserLikes, setLikes) {
+    const { data } = await getLikes();
+    setUserLikes(data.likes);
+    setLikes(data.allLikes);
 }
 
 async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtags) {
