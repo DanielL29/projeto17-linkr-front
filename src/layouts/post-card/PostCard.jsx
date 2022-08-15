@@ -10,7 +10,7 @@ import {
   HeaderPosts,
 } from "./PostCardStyle";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Modal } from "../../components/model-delete/Modal";
 import { InputUpdate } from "../../components/input-update/InputUpdate";
 
@@ -25,9 +25,10 @@ export default function PostCard({
   pictureUrl,
   ownerId,
   postId,
+  userPost,
+  setPosts
 }) {
   const navigate = useNavigate();
-  const inputRef = useRef();
 
   const [showModal, setShowModal] = useState(false);
   const [update, setUpdate] = useState(false);
@@ -43,47 +44,27 @@ export default function PostCard({
   return (
     <PostCardWrapper>
       {loading ? (
-        <Skeleton
-          baseColor="#444"
-          style={{
-            width: "50px",
-            height: "50px",
-            borderRadius: "100%",
-            marginRight: "17px",
-          }}
-        />
+        <Skeleton baseColor="#444" style={{ width: "50px", height: "50px", borderRadius: "100%", marginRight: "17px" }} />
       ) : (
-        <img src={pictureUrl} alt="user" />
+        <img className="likes" src={pictureUrl} alt="user" />
       )}
-      <div>
+      <div className="content">
         <HeaderPosts>
           <h1 onClick={() => navigate(`/user/${ownerId}`)}>
-            {loading ? (
-              <Skeleton
-                baseColor="#444"
-                style={{ width: "100%", height: "20px" }}
-              />
-            ) : (
-              username
-            )}
+            {loading ? <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} /> : username}
           </h1>
-          <div>
-            <BsPencilFill onClick={setUpdating} className="icon" />
-            <BsFillTrash2Fill onClick={openModal} className="icon" />
-          </div>
+          {userPost ? (
+            <div>
+              <BsPencilFill onClick={setUpdating} className="icon" />
+              <BsFillTrash2Fill onClick={openModal} className="icon" />
+            </div>
+          ) : ''}
         </HeaderPosts>
-        <Modal
-          showModal={showModal}
-          setShowModal={setShowModal}
-          postId={postId}
-        />
+        <Modal showModal={showModal} setShowModal={setShowModal} postId={postId} setPosts={setPosts} />
         {loading ? (
-          <Skeleton
-            baseColor="#444"
-            style={{ width: "100%", height: "20px" }}
-          />
+          <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} />
         ) : update ? ( 
-          <InputUpdate description={description} setUpdate={setUpdate}  postId={postId}/>  // <------------ Atualizando a description do post
+          <InputUpdate description={description} setUpdate={setUpdate} postId={postId} setPosts={setPosts} />  // <------------ Atualizando a description do post
         ) : (
           <ReactTagify
             tagStyle={{ cursor: "pointer", fontWeight: "bold", color: "#fff" }}
@@ -95,44 +76,16 @@ export default function PostCard({
         <UrlMetadataWrapper onClick={() => window.open(url, "_blank")}>
           <div>
             <h2>
-              {loading ? (
-                <Skeleton
-                  baseColor="#444"
-                  style={{ width: "100%", height: "20px" }}
-                />
-              ) : (
-                urlTitle
-              )}
+              {loading ? <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} /> : urlTitle}
             </h2>
             <h3>
-              {loading ? (
-                <Skeleton
-                  baseColor="#444"
-                  style={{ width: "100%", height: "20px" }}
-                />
-              ) : (
-                urlDescription
-              )}
+              {loading ? <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} /> : urlDescription}
             </h3>
             <h4>
-              {loading ? (
-                <Skeleton
-                  baseColor="#444"
-                  style={{ width: "100%", height: "20px" }}
-                />
-              ) : (
-                url
-              )}
+              {loading ? <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} /> : url}
             </h4>
           </div>
-          {loading ? (
-            <Skeleton
-              baseColor="#444"
-              style={{ width: "140px", height: "100%" }}
-            />
-          ) : (
-            <img src={urlImage} alt="url" />
-          )}
+          {loading ? <Skeleton baseColor="#444" style={{ width: "140px", height: "100%" }}/> : <img src={urlImage} alt="url" />}
         </UrlMetadataWrapper>
       </div>
     </PostCardWrapper>

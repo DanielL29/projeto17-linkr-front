@@ -1,4 +1,5 @@
 import { useContext, useState } from "react"
+import { USER_PICTURE } from "../../constants"
 import HashtagContext from "../../contexts/HashtagContext"
 import { publishPost } from "../../utils/timeline"
 import { PublishCardWrapper } from "./HomeStyle"
@@ -10,7 +11,7 @@ export default function PublishCard({ setPosts }) {
 
     return (
         <PublishCardWrapper>
-            <img src="https://http.cat/422.jpg" alt="user" />
+            <img src={USER_PICTURE} alt="user" />
             <form onSubmit={(e) => publishPost(e, setPublishing, post, setPost, setPosts, setHashtags)}>
                 <h1>What are you going to share today?</h1>
                 <input type="text" name="url" value={post.url}

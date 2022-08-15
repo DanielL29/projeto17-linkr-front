@@ -19,8 +19,8 @@ export default function Signin() {
         setLoad(true);
         try {
             const {data} = await signin(user);
-            const token = JSON.stringify(`Bearer ${data}`);
-            localStorage.setItem("token", token);
+            const userLocal = JSON.stringify(data);
+            localStorage.setItem("userLocal", userLocal);
             setLoad(false);
             navigate("/home", { replace: true });
         } catch(err) {
