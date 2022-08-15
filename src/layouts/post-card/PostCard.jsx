@@ -27,7 +27,7 @@ export default function PostCard({
   ownerId,
   postId,
   liked,
-  handleLike
+  handleLike,
   userPost,
   setPosts
 }) {
