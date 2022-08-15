@@ -140,13 +140,18 @@ export const UserContainer = styled.div`
   flex-direction: column;
   align-items: center;
   max-width: 50px;
-  height: 90px;
   margin-right: 18px;
   svg {
     font-size: 20px;
     color: #FFFFFF;
+    margin-bottom: 4px;
+    margin-top: 20px;
   }
   svg:hover {
     cursor: pointer;
+  }
+  span {
+    font-size: 11px;
+    color: #FFFFFF;
   }
 `;

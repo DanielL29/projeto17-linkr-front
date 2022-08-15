@@ -14,6 +14,7 @@ import {
 import { useState } from "react";
 import { Modal } from "../../components/model-delete/Modal";
 import { InputUpdate } from "../../components/input-update/InputUpdate";
+import ReactTooltip from "react-tooltip";
 
 export default function PostCard({
   username,
@@ -29,7 +30,9 @@ export default function PostCard({
   liked,
   handleLike,
   userPost,
-  setPosts
+  setPosts,
+  likesCount,
+  usersLikes
 }) {
   const navigate = useNavigate();
 
@@ -44,6 +47,7 @@ export default function PostCard({
     setUpdate((state) => !state);
   };
 
+  const postLikes = likesCount > 3 ? `e outras ${likesCount - 2}` : "";
 
 
   return (
@@ -54,6 +58,8 @@ export default function PostCard({
       <UserContainer>
         <img className="likes" src={pictureUrl} alt="user" />
         <div onClick={() => handleLike(postId)}>{liked.length === 1 ? <BsHeartFill color="#AC0000" /> : <BsHeart /> }</div>
+        <span data-tip="React-tooltip">{`${likesCount} likes`}</span>
+        <ReactTooltip place="bottom" type="light" effect="solid" getContent={() => liked.length === 1 ? `Você, ${0} ${postLikes}` : `${0}, ${1} ${postLikes}`} />
       </UserContainer>
       )}
       <div className="content">

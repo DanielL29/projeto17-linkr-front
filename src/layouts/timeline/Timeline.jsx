@@ -10,21 +10,21 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(true)
     const [userLikes, setUserLikes] = useState([]);
-    const [likes, setLikes] = useState([]);
 
     useEffect(() => {
         loadPosts(setLoading, setPosts, hashtag, username)
-        loadLikes(setUserLikes, setLikes);
+        loadLikes(setUserLikes);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag, username])
 
     async function handleLike(postId) {
-        if(userLikes.length === 1) {
+        const liked = userLikes.filter(like => like.postId === postId);
+        if(liked.length === 1) {
             await dislikePost(postId);
-            loadLikes(setUserLikes, setLikes);
+            await loadLikes(setUserLikes);
         } else {
             await likePost(postId);
-            loadLikes(setUserLikes, setLikes);
+            await loadLikes(setUserLikes);
         }  
     }
 
@@ -34,7 +34,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
             {publish ? <PublishCard setPosts={setPosts} /> : ''}
             {loading ? <PostCard loading={loading} /> :
                 posts.length > 0 ?
-                    posts.map(post =>
+                    posts.map((post) =>
                         <PostCard key={post.id}
                             username={post.username}
                             pictureUrl={post.pictureUrl}
@@ -46,6 +46,8 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                             ownerId={post.ownerId}
                             postId={post.id}
                             liked={userLikes.filter(like => like.postId === post.id)}
+                            usersLikes={post.users}
+                            likesCount={post.likesCount}
                             userPost={post.userPost}
                             setPosts={setPosts}
                             loading={loading}
