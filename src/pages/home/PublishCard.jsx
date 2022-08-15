@@ -1,4 +1,5 @@
 import { useContext, useState } from "react"
+import { USER_PICTURE } from "../../constants"
 import HashtagContext from "../../contexts/HashtagContext"
 import { publishPost } from "../../utils/timeline"
 import { PublishCardWrapper } from "./HomeStyle"

@@ -31,14 +31,16 @@ export const PostCardWrapper = styled.div`
   padding: 18px;
   margin-bottom: 16px;
 
-  img {
-    width: 50px;
+
+  .likes {
+    min-width: 50px;
+    max-width: 50px;
     height: 50px;
     border-radius: 26px;
     object-fit: cover;
   }
 
-  > div {
+  .content {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -121,6 +123,7 @@ export const UrlMetadataWrapper = styled.div`
     height: 100%;
     border-radius: 0px 12px 12px 0px;
     margin-right: 0;
+    object-fit: cover;
   }
 
   @media screen and (max-width: 611px) {

@@ -45,6 +45,8 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                             ownerId={post.ownerId}
                             postId={post.id}
                             liked={userLikes.filter(like => like.postId === post.id)}
+                            userPost={post.userPost}
+                            setPosts={setPosts}
                             loading={loading}
                             handleLike={handleLike}
                         />

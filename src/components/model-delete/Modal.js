@@ -2,12 +2,17 @@ import styled from "styled-components";
 import { RotatingLines } from "react-loader-spinner";
 import { BASE_URL, AUTH_CONFIG } from "../../constants";
 import axios from "axios";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { getPosts } from "../../services/postService";
 import { callToast, treatErrors } from "../../utils/global";
+import { useParams } from "react-router-dom";
+import { getHashtags } from "../../services/hashtagService";
+import HashtagContext from "../../contexts/HashtagContext";
 
-export const Modal = ({ showModal, setShowModal, postId }) => {
+export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
   const [loadingDelete, setLoadingDelete] = useState(false);
+  const { username, hashtag } = useParams()
+  const { setHashtags } = useContext(HashtagContext)
 
   const closeModal = () => {
     setShowModal((state) => !state);
@@ -18,11 +23,14 @@ export const Modal = ({ showModal, setShowModal, postId }) => {
 
     try {
       await axios.delete(`${BASE_URL}/posts/${postId}`, AUTH_CONFIG);
-      const teste = await getPosts();
       setLoadingDelete(false);
       setShowModal(false);
-      console.log(teste)
-      
+    
+      const { data: posts } = await getPosts(hashtag, username);
+      const { data: hashtags } = await getHashtags()
+
+      setPosts(posts)
+      setHashtags(hashtags)
     } catch (err) {
       setLoadingDelete(false);
       callToast('Houve um erro ao deleter o seu post', 'error');
@@ -81,19 +89,27 @@ const Container = styled.div`
 `;
 
 const ModalWrapper = styled.div`
-  width: 20%;
-  height: auto;
-  padding: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  width: 597px;
+  height: 262px;
   border-radius: 40px;
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.4);
   background-color: #333333;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-items: center;
+  justify-content: center;
   span {
     margin-top: 20px;
     font-size: 14px;
@@ -104,12 +120,14 @@ const ModalContent = styled.div`
     color: white;
     font-size: 22px;
     text-align: center;
+    width: 230px;
   }
   div {
     margin-top: 40px;
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: center;
     flex-direction: row;
 
     button:last-child {
@@ -132,4 +150,6 @@ const ModalContent = styled.div`
 
     cursor: pointer;
   }
+
+  
 `;
