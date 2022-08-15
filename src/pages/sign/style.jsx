@@ -5,6 +5,10 @@ const Container = styled.div`
     height: 100vh;
     display: flex;
     align-items: center;
+    @media screen and (max-width: 611px) {
+        flex-direction: column;
+        width: 100%;
+    }
 `;
 
 const PresentationContainer = styled.div`
@@ -28,6 +32,20 @@ const PresentationContainer = styled.div`
     h1, h2 {
         color: #FFFFFF;
         font-weight: 700;
+    }
+
+    @media screen and (max-width: 611px) {
+        width: 100%;
+        padding-left: 0;
+        align-items: center;
+        height: 200px;
+        h1 {
+            font-size: 76px;
+        }
+        h2 {
+            font-size: 23px;
+            line-height: 34px;
+        }
     }
 `;
 
@@ -61,6 +79,13 @@ const SignContainer = styled.form`
         color: #FFFFFF;
         font-size: 20px;
         opacity: ${props => props.load ? 0.6 : 1};
+    }
+    @media screen and (max-width: 611px) {
+        width: 100%;
+        margin-top: 40px;
+        input, button {
+            width: 90%;  
+        }
     }
 `;
 

@@ -12,8 +12,8 @@ async function loadPosts(setLoading, setPosts, hashtag, username) {
 }
 
 async function loadLikes(setUserLikes) {
-    const { data: likes } = await getLikes();
-    setUserLikes(likes);
+    const { data } = await getLikes();
+    setUserLikes(data.likes);
 }
 
 async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtags) {
