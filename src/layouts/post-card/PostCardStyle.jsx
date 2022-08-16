@@ -180,11 +180,13 @@ export const Tooltip = styled.div`
     align-items: center;
 
     width: 169px;
-    height: 24px;
+    min-height: 24px;
     background: rgba(255, 255, 255, 0.9);
     border-radius: 3px;
     font-weight: 700;
     font-size: 11px;
     color: #505050;
+    padding: 5px;
+    text-align: center;
   }
 `
