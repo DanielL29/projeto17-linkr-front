@@ -4,15 +4,17 @@ import Trending from "../../layouts/trending/Trending";
 import { Container } from "../home/HomeStyle";
 import { ToastContainer } from "react-toastify";
 import { useParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { loadUser } from "../../utils/userPage";
+import UserContext from "../../contexts/UserContext";
 
 export default function UserPage() {
   const { id } = useParams();
   const [user, setUser] = useState({})
+  const { currentUser } = useContext(UserContext)
 
   useEffect(() => {
-    loadUser(id, setUser)
+    loadUser(id, setUser, currentUser.token)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [id])
 

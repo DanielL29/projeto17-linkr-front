@@ -12,9 +12,9 @@ async function signin(user) {
     return promise;
 }
 
-async function getUser(id) {
+async function getUser(id, token) {
     try {
-        const response = axios.get(GET_USER_ENDPOINT(id), AUTH_CONFIG)
+        const response = axios.get(GET_USER_ENDPOINT(id), AUTH_CONFIG(token))
         
         return response
     } catch (err) {

@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import { DebounceInput } from "react-debounce-input";
 import { AUTH_CONFIG, BASE_URL } from "../../constants";
 import styled from "styled-components";
@@ -6,6 +6,7 @@ import axios from "axios";
 import UserFound from "./UserFound";
 import UserNotFound from "./UserNotFound";
 import { BsSearch } from "react-icons/bs";
+import UserContext from '../../contexts/UserContext'
 
 export default function InputSearch() {
   const inputRef = useRef();
@@ -13,13 +14,14 @@ export default function InputSearch() {
   const [users, setUsers] = useState([]);
   const [searching, setSearching] = useState(false);
   const [resultSearch, setResultSearch] = useState(false);
+  const { currentUser } = useContext(UserContext)
 
   useEffect(() => {
     
     if (input.length !== 0) {
       const promise = axios.get(
         `${BASE_URL}/search?username=${input}`,
-        AUTH_CONFIG
+        AUTH_CONFIG(currentUser.token)
       );
 
       promise.then((response) => {
@@ -36,6 +38,7 @@ export default function InputSearch() {
         console.log(err);
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [input]);
 
   function InputController(event) {

@@ -8,11 +8,13 @@ import { callToast, treatErrors } from "../../utils/global";
 import { useParams } from "react-router-dom";
 import { getHashtags } from "../../services/hashtagService";
 import HashtagContext from "../../contexts/HashtagContext";
+import UserContext from "../../contexts/UserContext";
 
 export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
   const [loadingDelete, setLoadingDelete] = useState(false);
   const { username, hashtag } = useParams()
   const { setHashtags } = useContext(HashtagContext)
+  const { currentUser } = useContext(UserContext)
 
   const closeModal = () => {
     setShowModal((state) => !state);
@@ -22,12 +24,12 @@ export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
     setLoadingDelete(true);
 
     try {
-      await axios.delete(`${BASE_URL}/posts/${postId}`, AUTH_CONFIG);
+      await axios.delete(`${BASE_URL}/posts/${postId}`, AUTH_CONFIG(currentUser.token));
       setLoadingDelete(false);
       setShowModal(false);
     
-      const { data: posts } = await getPosts(hashtag, username);
-      const { data: hashtags } = await getHashtags()
+      const { data: posts } = await getPosts(currentUser.token, hashtag, username);
+      const { data: hashtags } = await getHashtags(currentUser.token)
 
       setPosts(posts)
       setHashtags(hashtags)

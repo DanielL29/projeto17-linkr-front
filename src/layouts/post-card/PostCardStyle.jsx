@@ -153,5 +153,38 @@ export const UserContainer = styled.div`
   span {
     font-size: 11px;
     color: #FFFFFF;
+    cursor: pointer;
   }
 `;
+
+export const Tooltip = styled.div`
+  display: ${({ tooltip }) => tooltip ? 'flex': 'none'};
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  transition: all 200ms ease-in-out;
+
+  .arrow-up {
+    margin-top: 2px;
+    width: 0; 
+    height: 0; 
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 12px solid rgba(255, 255, 255, 0.9);
+  }
+
+  .tooltip-body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 169px;
+    height: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 3px;
+    font-weight: 700;
+    font-size: 11px;
+    color: #505050;
+  }
+`

@@ -1,9 +1,11 @@
 const BASE_URL = process.env.REACT_APP_API_URL
 
 const GET_USER_ENDPOINT = (id) => `${BASE_URL}/users/${id}`
-const AUTH_CONFIG = {
-    headers: {
-        "Authorization": JSON.parse(localStorage.getItem('token'))
+const AUTH_CONFIG = (token) => {
+    return {
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
     }
 }
 

@@ -5,15 +5,17 @@ import HashtagContext from '../../contexts/HashtagContext';
 import Skeleton from "react-loading-skeleton";
 import 'react-loading-skeleton/dist/skeleton.css'
 import { loadHashtags } from '../../utils/trending';
+import UserContext from '../../contexts/UserContext';
 
 export default function Trending() {
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
     const { hashtags, setHashtags } = useContext(HashtagContext)
+    const { currentUser } = useContext(UserContext)
     let skeleton = new Array(9).fill(9)
 
     useEffect(() => {
-        loadHashtags(setLoading, setHashtags)
+        loadHashtags(setLoading, setHashtags, currentUser.token)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

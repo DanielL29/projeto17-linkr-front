@@ -9,12 +9,13 @@ import {
   UrlMetadataWrapper,
   HeaderPosts,
   UserContainer,
+  Tooltip,
 } from "./PostCardStyle";
 
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Modal } from "../../components/model-delete/Modal";
 import { InputUpdate } from "../../components/input-update/InputUpdate";
-import ReactTooltip from "react-tooltip";
+import UserContext from "../../contexts/UserContext";
 
 export default function PostCard({
   username,
@@ -32,12 +33,15 @@ export default function PostCard({
   userPost,
   setPosts,
   likesCount,
-  usersLikes
+  usersWhoLiked,
+  liking
 }) {
   const navigate = useNavigate();
 
   const [showModal, setShowModal] = useState(false);
   const [update, setUpdate] = useState(false);
+  const [tooltip, setTooltip] = useState(false)
+  const { currentUser } = useContext(UserContext)
 
   const openModal = () => {
     setShowModal((state) => !state);
@@ -47,7 +51,16 @@ export default function PostCard({
     setUpdate((state) => !state);
   };
 
-  const postLikes = likesCount > 3 ? `e outras ${likesCount - 2}` : "";
+  function postLikes(greaterThree, equalThree) {
+    if(likesCount > 3) {
+      return `e outras ${likesCount - greaterThree} pessoas`
+    } else if(likesCount === 3) {
+      return `e outras ${likesCount - equalThree} pessoas`
+    } else if(likesCount === 2 && liked.length === 0) {
+      return `e outra pessoa`
+    } 
+    else return ""
+  }
 
 
   return (
@@ -55,11 +68,24 @@ export default function PostCard({
       {loading ? (
         <Skeleton baseColor="#444" style={{ width: "50px", height: "50px", borderRadius: "100%", marginRight: "17px" }} />
       ) : (
-      <UserContainer>
+      <UserContainer onMouseLeave={() => setTooltip(false)}>
         <img className="likes" src={pictureUrl} alt="user" />
-        <div onClick={() => handleLike(postId)}>{liked.length === 1 ? <BsHeartFill color="#AC0000" /> : <BsHeart /> }</div>
-        <span data-tip="React-tooltip">{`${likesCount} likes`}</span>
-        <ReactTooltip place="bottom" type="light" effect="solid" getContent={() => liked.length === 1 ? `Você, ${0} ${postLikes}` : `${0}, ${1} ${postLikes}`} />
+        <div onClick={() => handleLike(postId)} disabled={liking}>{liked.length === 1 ? <BsHeartFill color="#AC0000" /> : <BsHeart /> }</div>
+        <span onMouseEnter={() => setTooltip(true)}>{`${likesCount} likes`}</span>
+        <Tooltip tooltip={tooltip}>
+          <div class="arrow-up"></div>
+          <div className="tooltip-body" onMouseLeave={() => setTooltip(false)}>
+            {usersWhoLiked.length === 0 ?
+              'Sem Likes': usersWhoLiked.includes(currentUser.username) ? 
+              `Você${usersWhoLiked.length === 1 ? '' : ','} ${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ? 
+                usersWhoLiked[usersWhoLiked.length - 2] ?? '' : 
+                usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(2, 1)}` :
+              `${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ? 
+                usersWhoLiked[usersWhoLiked.length - 2] ?? '' : 
+                usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(1, 0)}`
+            }
+          </div>
+        </Tooltip>
       </UserContainer>
       )}
       <div className="content">

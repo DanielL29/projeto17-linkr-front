@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { ThreeDots } from "react-loader-spinner";
 import { Container, PresentationContainer, SignContainer } from "./style";
 import { signin } from "../../services/authService";
 import { ToastContainer } from "react-toastify";
 import { treatErrors } from "../../utils/global";
+import UserContext from "../../contexts/UserContext";
 
 export default function Signin() {
     const navigate = useNavigate();
@@ -13,16 +14,15 @@ export default function Signin() {
         email: "",
         password: "",
     });
+    const { setCurrentUser } = useContext(UserContext)
 
     async function handleSignin(e) {
         e.preventDefault();
         setLoad(true);
         try {
             const { data } = await signin(user);
-            const token = JSON.stringify(`Bearer ${data.token}`);
-            localStorage.setItem("token", token);
-            localStorage.setItem("userId", data.id);
-            localStorage.setItem("pictureUrl", data.pictureUrl);
+            setCurrentUser(data)
+            localStorage.setItem("userLocal", JSON.stringify(data));
             setLoad(false);
             navigate("/home", { replace: true });
         } catch(err) {

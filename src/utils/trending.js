@@ -1,9 +1,9 @@
 import { getHashtags } from "../services/hashtagService"
 
-async function loadHashtags(setLoading, setHashtags) {
+async function loadHashtags(setLoading, setHashtags, token) {
     setLoading(true)
 
-    const { data: hashtags } = await getHashtags()
+    const { data: hashtags } = await getHashtags(token)
 
     setHashtags(hashtags)
 

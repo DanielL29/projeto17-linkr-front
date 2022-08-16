@@ -7,6 +7,7 @@ import { callToast, treatErrors } from "../../utils/global";
 import { useParams } from "react-router-dom";
 import HashtagContext from "../../contexts/HashtagContext";
 import { getHashtags } from "../../services/hashtagService";
+import UserContext from '../../contexts/UserContext'
 
 export const InputUpdate = ({ description, setUpdate, postId, setPosts }) => {
   const [inputValue, setInputValue] = useState("");
@@ -14,6 +15,7 @@ export const InputUpdate = ({ description, setUpdate, postId, setPosts }) => {
   const inputRef = useRef();
   const { username, hashtag } = useParams()
   const { setHashtags } = useContext(HashtagContext)
+  const { currentUser } = useContext(UserContext)
 
   useEffect(() => {
     inputRef.current.value = description;
@@ -37,13 +39,13 @@ export const InputUpdate = ({ description, setUpdate, postId, setPosts }) => {
           {
             description: inputValue,
           },
-          AUTH_CONFIG
+          AUTH_CONFIG(currentUser.token)
         ));
         setDisabled(false);
         setUpdate(false);
 
-        const { data: posts } = await getPosts(hashtag, username);
-        const { data: hashtags } = await getHashtags()
+        const { data: posts } = await getPosts(currentUser.token, hashtag, username);
+        const { data: hashtags } = await getHashtags(currentUser.token)
 
         setPosts(posts)
         setHashtags(hashtags)

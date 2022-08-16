@@ -1,9 +1,9 @@
 import { getUser } from "../services/authService"
 import { treatErrors } from "./global"
 
-async function loadUser(id, setUser) {
+async function loadUser(id, setUser, token) {
     try {
-      const { data: user } = await getUser(id)
+      const { data: user } = await getUser(id, token)
 
       setUser(user)
     } catch (err) {

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react"
-import { USER_PICTURE } from "../../constants"
 import HashtagContext from "../../contexts/HashtagContext"
+import UserContext from "../../contexts/UserContext"
 import { publishPost } from "../../utils/timeline"
 import { PublishCardWrapper } from "./HomeStyle"
 
@@ -8,12 +8,12 @@ export default function PublishCard({ setPosts }) {
     const [post, setPost] = useState({ url: "", description: "" })
     const [publishing, setPublishing] = useState(false)
     const { setHashtags } = useContext(HashtagContext)
-    const pictureUrl = localStorage.getItem("pictureUrl");
+    const { currentUser } = useContext(UserContext)
 
     return (
         <PublishCardWrapper>
-            <img src={pictureUrl} alt="user" />
-            <form onSubmit={(e) => publishPost(e, setPublishing, post, setPost, setPosts, setHashtags)}>
+            <img src={currentUser.pictureUrl} alt="user" />
+            <form onSubmit={(e) => publishPost(e, setPublishing, post, setPost, setPosts, setHashtags, currentUser.token)}>
                 <h1>What are you going to share today?</h1>
                 <input type="text" name="url" value={post.url}
                     placeholder="http://..."
