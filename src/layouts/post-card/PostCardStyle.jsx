@@ -4,6 +4,7 @@ export const HeaderPosts = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   div {
     width: 60px;
     display: flex;
@@ -29,8 +30,8 @@ export const PostCardWrapper = styled.div`
   background-color: #171717;
   border-radius: 16px;
   padding: 18px;
-  margin-bottom: 16px;
-
+  z-index: 1;
+  position: relative;
 
   .likes {
     min-width: 50px;
@@ -154,6 +155,13 @@ export const UserContainer = styled.div`
     font-size: 11px;
     color: #FFFFFF;
     cursor: pointer;
+    text-align: center;
+  }
+
+  .comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -189,4 +197,14 @@ export const Tooltip = styled.div`
     padding: 5px;
     text-align: center;
   }
+`
+
+export const CommentsWrapper = styled.div`
+  width: 611px;
+  height: auto;
+  background-color: #1E1E1E;
+  border-radius: 16px;
+  padding: ${({ comments }) => comments.length > 0 ? '25px' : '0'};
+  margin-bottom: 69px;
+  margin-top: -25px;
 `

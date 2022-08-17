@@ -1,3 +1,4 @@
+import { getComments } from "../services/commentService"
 import { getHashtags } from "./../services/hashtagService"
 import { createPost, getPosts, getLikes } from "./../services/postService"
 
@@ -14,6 +15,16 @@ async function loadPosts(setLoading, setPosts, hashtag, username, token) {
 async function loadLikes(setUserLikes, token) {
     const { data } = await getLikes(token);
     setUserLikes(data.likes);
+}
+
+async function loadComments(postId, setLoading, setComments, token) {
+    setLoading(true)
+
+    const { data: comments } = await getComments(token, postId)
+
+    setComments(comments)
+
+    setTimeout(() => setLoading(false), 1000)
 }
 
 async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtags, token) {
@@ -37,4 +48,4 @@ async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtag
     setTimeout(() => { setPublishing(false) }, 1000)
 }
 
-export { loadPosts, publishPost, loadLikes }
+export { loadPosts, publishPost, loadLikes, loadComments }
