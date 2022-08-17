@@ -1,5 +1,5 @@
 import axios from "axios"
-import { GET_COMMENTS_ENDPOINT, AUTH_CONFIG } from "../constants"
+import { GET_COMMENTS_ENDPOINT, AUTH_CONFIG, POST_COMMENTS_ENDPOINT } from "../constants"
 import { treatErrors } from "../utils/global"
 
 async function getComments(token, postId) {
@@ -12,4 +12,12 @@ async function getComments(token, postId) {
     }
 }
 
-export { getComments }
+async function postComment(token, comment, postId) {
+    try {
+        await axios.post(POST_COMMENTS_ENDPOINT(postId), { description: comment }, AUTH_CONFIG(token))
+    } catch (err) {
+        treatErrors(err)
+    }
+}
+
+export { getComments, postComment }

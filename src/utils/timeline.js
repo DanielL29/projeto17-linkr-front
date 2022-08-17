@@ -1,4 +1,4 @@
-import { getComments } from "../services/commentService"
+import { getComments, postComment } from "../services/commentService"
 import { getHashtags } from "./../services/hashtagService"
 import { createPost, getPosts, getLikes } from "./../services/postService"
 
@@ -48,4 +48,15 @@ async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtag
     setTimeout(() => { setPublishing(false) }, 1000)
 }
 
-export { loadPosts, publishPost, loadLikes, loadComments }
+async function publishComment(setComment, comment, setComments, postId, token) {
+    if(comment === "") return
+
+    await postComment(token, comment, postId)
+
+    const { data: comments } = await getComments(token, postId)
+
+    setComment('')
+    setComments(comments)
+}
+
+export { loadPosts, publishPost, loadLikes, loadComments, publishComment }

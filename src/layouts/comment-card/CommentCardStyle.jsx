@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const CommentCardWrapper = styled.div`
     display: flex;
     align-items: center;
-    padding: 15px 0;
+    padding: 16px 0;
     border-bottom: 1px solid #353535;
     font-size: 14px;
     z-index: -1;

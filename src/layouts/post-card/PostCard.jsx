@@ -19,7 +19,8 @@ import { Modal } from "../../components/model-delete/Modal";
 import { InputUpdate } from "../../components/input-update/InputUpdate";
 import UserContext from "../../contexts/UserContext";
 import CommentCard from "../comment-card/CommentCard";
-import { loadComments } from "../../utils/timeline";
+import { loadComments, publishComment } from "../../utils/timeline";
+import CommentInput from "../../components/comment-input/CommentInput";
 
 export default function PostCard({
   username,
@@ -48,6 +49,7 @@ export default function PostCard({
   const [tooltip, setTooltip] = useState(false)
   const [loadingComments, setLoadingComments] = useState(false)
   const [comments, setComments] = useState([])
+  const [comment, setComment] = useState('')
   const { currentUser } = useContext(UserContext)
 
   const openModal = () => {
@@ -155,6 +157,11 @@ export default function PostCard({
             userPage={() => navigate(`/user/${comment.id}`)}
           />
         )}
+        {loadingComments || comments.length > 0 ? 
+          <CommentInput pictureUrl={currentUser.pictureUrl} comment={comment} setComment={setComment} 
+            publishComment={() => publishComment(setComment, comment, setComments, postId, currentUser.token)} /> : 
+          ''
+        }
       </CommentsWrapper>
     </>
   );
