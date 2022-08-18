@@ -16,7 +16,7 @@ export const HeaderWrapper = styled.div`
     color: #fff;
     padding-left: 28px;
     padding-right: 17px;
-    z-index: 1;
+    z-index: 2;
 
     h1 {
         font-family: 'Passion One';

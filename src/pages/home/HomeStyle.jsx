@@ -39,6 +39,7 @@ export const PublishCardWrapper = styled.div`
     margin-bottom: 30px;
 
     img {
+        min-width: 50px;
         max-width: 50px;
         height: 50px;
         border-radius: 26px;

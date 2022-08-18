@@ -4,6 +4,7 @@ export const HeaderPosts = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   div {
     width: 60px;
     display: flex;
@@ -29,8 +30,8 @@ export const PostCardWrapper = styled.div`
   background-color: #171717;
   border-radius: 16px;
   padding: 18px;
-  margin-bottom: 16px;
-
+  z-index: 1;
+  position: relative;
 
   .likes {
     min-width: 50px;
@@ -154,6 +155,19 @@ export const UserContainer = styled.div`
     font-size: 11px;
     color: #FFFFFF;
     cursor: pointer;
+    text-align: center;
+  }
+
+  .comments {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .shares {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 `;
 
@@ -164,6 +178,8 @@ export const Tooltip = styled.div`
   align-items: center;
   z-index: 1;
   transition: all 200ms ease-in-out;
+  position: absolute;
+  margin-top: 110px;
 
   .arrow-up {
     margin-top: 2px;
@@ -188,5 +204,40 @@ export const Tooltip = styled.div`
     color: #505050;
     padding: 5px;
     text-align: center;
+  }
+`
+
+export const CommentsWrapper = styled.div`
+  width: 611px;
+  height: auto;
+  background-color: #1E1E1E;
+  border-radius: 16px;
+  padding: ${({ showComments }) => showComments ? '25px' : '0'};
+  margin-bottom: 69px;
+  margin-top: -25px;
+`
+
+export const RepostWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  width: 611px;
+  height: 80px;
+  background-color: #1E1E1E;
+  border-radius: 16px;
+  font-weight: 400;
+  font-size: 11px;
+  color: #fff;
+  padding-top: 10px;
+  padding-left: 13px;
+  margin-bottom: -40px;
+
+  p {
+    margin-left: 6px;
+    margin-top: 4px;
+  }
+
+  span {
+    font-weight: 700;
   }
 `

@@ -9,9 +9,10 @@ import { useParams } from "react-router-dom";
 import { getHashtags } from "../../services/hashtagService";
 import HashtagContext from "../../contexts/HashtagContext";
 import UserContext from "../../contexts/UserContext";
+import { repostPost } from "../../utils/timeline";
 
-export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
-  const [loadingDelete, setLoadingDelete] = useState(false);
+export const Modal = ({ showModal, setShowModal, postId, setPosts, repost }) => {
+  const [loading, setLoading] = useState(false);
   const { username, hashtag } = useParams()
   const { setHashtags } = useContext(HashtagContext)
   const { currentUser } = useContext(UserContext)
@@ -21,11 +22,11 @@ export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
   };
 
   async function sendDeleteToApi() {
-    setLoadingDelete(true);
+    setLoading(true);
 
     try {
       await axios.delete(`${BASE_URL}/posts/${postId}`, AUTH_CONFIG(currentUser.token));
-      setLoadingDelete(false);
+      setLoading(false);
       setShowModal(false);
     
       const { data: posts } = await getPosts(currentUser.token, hashtag, username);
@@ -34,7 +35,7 @@ export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
       setPosts(posts)
       setHashtags(hashtags)
     } catch (err) {
-      setLoadingDelete(false);
+      setLoading(false);
       callToast('Houve um erro ao deleter o seu post', 'error');
       treatErrors(err);
     }     
@@ -46,7 +47,7 @@ export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
         <Container>
           <ModalWrapper>
             <ModalContent>
-              {loadingDelete ? (
+              {loading ? (
                 <>
                   <RotatingLines
                     strokeColor="#1877f2"
@@ -55,15 +56,18 @@ export const Modal = ({ showModal, setShowModal, postId, setPosts }) => {
                     width="96"
                     visible={true}
                   />
-                  <span>Aguarde estou deletando seu Post...</span>
+                  <span>{repost ? 'Compartilhando Post...' : 'Aguarde estou deletando seu Post...'}</span>
                 </>
               ) : (
                 <>
-                  <h3>Are you sure you want to delete this post?</h3>
+                  <h3>{repost ? 'Do you want to re-post this link?' : 'Are you sure you want to delete this post?'}</h3>
                   <div>
-                    <button onClick={closeModal}>No, go back</button>
-                    <button onClick={() => sendDeleteToApi()}>
-                      Yes, delete it
+                    <button onClick={closeModal}>{repost ? 'No, cancel' : 'No, go back'}</button>
+                    <button onClick={() => repost ? 
+                      repostPost(setLoading, setShowModal, setPosts, postId, hashtag, username, currentUser.token) : 
+                      sendDeleteToApi()}
+                    >
+                      {repost ? 'Yes, share!' : 'Yes, delete it'}
                     </button>
                   </div>
                 </>
@@ -83,7 +87,7 @@ const Container = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2 !important;
+  z-index: 3; 
 
   display: flex;
   justify-content: center;
