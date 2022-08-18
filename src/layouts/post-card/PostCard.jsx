@@ -54,6 +54,7 @@ export default function PostCard({
   const [tooltip, setTooltip] = useState(false)
   const [loadingComments, setLoadingComments] = useState(false)
   const [showComments, setShowComments] = useState(false)
+  const [isRepost, setIsRepost] = useState(false)
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
   const { currentUser } = useContext(UserContext)
@@ -91,7 +92,7 @@ export default function PostCard({
         ) : (
           <UserContainer onMouseLeave={() => setTooltip(false)}>
             <img className="likes" src={pictureUrl} alt="user" />
-            <div onClick={() => handleLike(postId)} disabled={liking}>{liked.length === 1 ? <BsHeartFill color="#AC0000" /> : <BsHeart />}</div>
+            <div onClick={() => handleLike(postId)} disabled={liking}>{liked.length > 0 ? <BsHeartFill color="#AC0000" /> : <BsHeart />}</div>
             <span onMouseEnter={() => setTooltip(true)}>{`${likesCount} likes`}</span>
             <Tooltip tooltip={tooltip}>
               <div class="arrow-up"></div>
@@ -113,7 +114,7 @@ export default function PostCard({
               <span>{comments.length > commentsCount ? comments.length : commentsCount} comments</span>
             </div>
             <div className="shares">
-              <RiRepeatFill cursor="pointer" style={{ fontSize: "20px" }} onClick={openModal} />
+              <RiRepeatFill cursor="pointer" style={{ fontSize: "20px" }} onClick={() => { setIsRepost(true); openModal(); }} />
               <span>{repostsCount} re-posts</span>
             </div>
           </UserContainer>
@@ -126,11 +127,10 @@ export default function PostCard({
             {userPost && !repost ? (
               <div>
                 <BsPencilFill onClick={setUpdating} className="icon" />
-                <BsFillTrash2Fill onClick={openModal} className="icon" />
+                <BsFillTrash2Fill onClick={() => { setIsRepost(false); openModal(); }} className="icon" />
               </div>
             ) : ''}
           </HeaderPosts>
-          <Modal showModal={showModal} setShowModal={setShowModal} postId={postId} setPosts={setPosts} repost={true} />
           {loading ? (
             <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} />
           ) : update ? (
@@ -177,6 +177,7 @@ export default function PostCard({
             publishComment={() => publishComment(setComment, comment, setComments, postId, currentUser.token)} />
         ) : ''}
       </CommentsWrapper>
+      <Modal showModal={showModal} setShowModal={setShowModal} postId={postId} setPosts={setPosts} repost={isRepost} />
     </>
   );
 }

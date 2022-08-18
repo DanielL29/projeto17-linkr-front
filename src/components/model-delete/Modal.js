@@ -87,7 +87,7 @@ const Container = styled.div`
   position: fixed;
   left: 0;
   top: 0;
-  z-index: 2 !important;
+  z-index: 3; 
 
   display: flex;
   justify-content: center;

@@ -62,7 +62,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                             urlImage={post.urlImage}
                             ownerId={post.ownerId}
                             postId={post.postId}
-                            liked={userLikes?.filter(like => like.postId === post.id)}
+                            liked={userLikes?.filter(like => like.postId === post.postId)}
                             usersWhoLiked={post.usersWhoLiked}
                             likesCount={post.likesCount}
                             commentsCount={post.commentsCount}
