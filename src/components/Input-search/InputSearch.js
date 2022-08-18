@@ -92,7 +92,7 @@ const SearchResults = styled.div`
   top: 90%;
 
   box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
-  background-color: #e7e7e7e7;
+  background-color: #e7e7e7;
 
   @media screen and (max-width: 670px) {
     min-width: 390px;

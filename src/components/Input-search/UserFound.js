@@ -14,6 +14,7 @@ export default function UserFound({ data, setResultSearch }) {
         <div>
           <img src={data.pictureUrl} alt="Imagem de perfil" />
           <span>{data.lower}</span>
+          <p>{data.following ? '• following' : ''}</p>
         </div>
     </ContainerUsersFound>
   );
@@ -50,6 +51,13 @@ const ContainerUsersFound = styled.div`
     :hover {
       font-weight: 600;
     }
+  }
+
+  p {
+    font-weight: 400;
+    font-size: 19px;
+    color: #C5C5C5;
+    margin-left: 5px;
   }
 
   :hover {
