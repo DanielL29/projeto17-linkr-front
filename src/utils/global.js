@@ -9,6 +9,7 @@ function callToast(message, type) {
 }
 
 function treatErrors(err) {
+    console.log(err)
     if(err.response.data) {
         callToast(err.response.data, 'error')
     } else {

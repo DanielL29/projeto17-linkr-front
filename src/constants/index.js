@@ -26,6 +26,12 @@ const REPOST_ENDPOINT = (postId) => `${BASE_URL}/reposts/${postId}/share`
 
 const DISLIKE_ENDPOINT = (id) => `${BASE_URL}/dislike/${id}`;
 
+const GET_FOLLOWER_ENDPOINT = (userId) => `${BASE_URL}/followers/${userId}`
+
+const FOLLOW_ENDPOINT = (userId) => `${BASE_URL}/followers/${userId}/follow`
+
+const UNFOLLOW_ENDPOINT = (userId) => `${BASE_URL}/followers/${userId}/unfollow`
+
 export { 
     BASE_URL, 
     GET_USER_ENDPOINT, 
@@ -37,5 +43,8 @@ export {
     DISLIKE_ENDPOINT, 
     GET_COMMENTS_ENDPOINT, 
     POST_COMMENTS_ENDPOINT,
-    REPOST_ENDPOINT
+    REPOST_ENDPOINT,
+    GET_FOLLOWER_ENDPOINT,
+    FOLLOW_ENDPOINT,
+    UNFOLLOW_ENDPOINT
 };
