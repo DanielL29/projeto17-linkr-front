@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { POSTS_ENDPOINT, AUTH_CONFIG, LIKES_ENDPOINT, LIKE_ENDPOINT, DISLIKE_ENDPOINT } from '../constants'
+import { POSTS_ENDPOINT, AUTH_CONFIG, LIKES_ENDPOINT, LIKE_ENDPOINT, DISLIKE_ENDPOINT, UPDATE_TIMELINE_ENDPOINT } from '../constants'
 import { callToast, treatErrors } from '../utils/global'
 
 async function createPost(post, token) {
@@ -50,4 +50,13 @@ async function dislikePost(id, token) {
     }
 }
 
-export { createPost, getPosts, getLikes, likePost, dislikePost }
+async function getNewPostsQuantity(token) {
+    try {
+        const response = axios.get(UPDATE_TIMELINE_ENDPOINT, AUTH_CONFIG(token));
+        return response;
+    } catch(err) {
+        treatErrors(err);
+    }
+}
+
+export { createPost, getPosts, getLikes, likePost, dislikePost, getNewPostsQuantity }

@@ -1,8 +1,10 @@
 import { useContext, useEffect, useState } from "react";
+import useInterval from "use-interval";
 import PageTitle from "../../components/page-title/PageTitle";
+import { POST_ATT_TIME } from "../../constants";
 import UserContext from "../../contexts/UserContext";
 import PublishCard from "../../pages/home/PublishCard";
-import { dislikePost, getPosts, likePost } from "../../services/postService";
+import { dislikePost, getNewPostsQuantity, getPosts, likePost } from "../../services/postService";
 import { loadLikes, loadPosts } from "../../utils/timeline";
 import PostCard from "../post-card/PostCard";
 import { TimelineWrapper } from "./TimelineStyle";
@@ -18,7 +20,11 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
         loadPosts(setLoading, setPosts, hashtag, username, currentUser.token)
         loadLikes(setUserLikes, currentUser.token);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hashtag, username])
+    }, [hashtag, username]);
+
+    useInterval(() => {
+        getNewPostsQuantity(currentUser.token, posts[posts.length - 1].id);
+    }, POST_ATT_TIME);
 
     async function handleLike(postId) {
         const liked = userLikes.filter(like => like.postId === postId);
