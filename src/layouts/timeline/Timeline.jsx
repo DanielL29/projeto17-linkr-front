@@ -56,7 +56,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
             {username ? <PageTitle title={title} pictureUrl={pictureUrl} /> : <PageTitle title={title} />}
             {publish ? <PublishCard setPosts={setPosts} /> : ''}
             {loading ? <PostCard loading={loading} /> :
-                posts.length > 0 ?
+                posts.length > 0 && typeof posts === "object" ?
                     posts.map((post) => {
                         return <PostCard key={post.id}
                             username={post.username}
@@ -67,10 +67,14 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                             urlDescription={post.urlDescription}
                             urlImage={post.urlImage}
                             ownerId={post.ownerId}
-                            postId={post.id}
-                            liked={userLikes?.filter(like => like.postId === post.id)}
+                            postId={post.postId}
+                            liked={userLikes?.filter(like => like.postId === post.postId)}
                             usersWhoLiked={post.usersWhoLiked}
                             likesCount={post.likesCount}
+                            commentsCount={post.commentsCount}
+                            postRepostUser={post.postRepostUser}
+                            repost={post.repost}
+                            repostsCount={post.repostsCount}
                             userPost={post.userPost}
                             setPosts={setPosts}
                             loading={loading}
@@ -79,7 +83,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                         />
                         }
                     )
-                    : <h1>There are no posts yet</h1>
+                    : posts.length > 0 ? <h1>{posts}</h1> : <h1>There are no posts yet</h1>
             }
         </TimelineWrapper>
     )
