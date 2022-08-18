@@ -123,7 +123,7 @@ export default function PostCard({
             <h1 onClick={() => navigate(`/user/${ownerId}`)}>
               {loading ? <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} /> : username}
             </h1>
-            {userPost ? (
+            {userPost && !repost ? (
               <div>
                 <BsPencilFill onClick={setUpdating} className="icon" />
                 <BsFillTrash2Fill onClick={openModal} className="icon" />
