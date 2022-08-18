@@ -50,9 +50,9 @@ async function dislikePost(id, token) {
     }
 }
 
-async function getNewPostsQuantity(token) {
+async function getNewPostsQuantity(token, postId) {
     try {
-        const response = axios.get(UPDATE_TIMELINE_ENDPOINT, AUTH_CONFIG(token));
+        const { data: response } = await axios.get(UPDATE_TIMELINE_ENDPOINT(postId), AUTH_CONFIG(token));
         return response;
     } catch(err) {
         treatErrors(err);

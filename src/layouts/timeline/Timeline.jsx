@@ -7,14 +7,16 @@ import PublishCard from "../../pages/home/PublishCard";
 import { dislikePost, getNewPostsQuantity, getPosts, likePost } from "../../services/postService";
 import { loadLikes, loadPosts } from "../../utils/timeline";
 import PostCard from "../post-card/PostCard";
+import NewPostsButton from "./NewPostsButton";
 import { TimelineWrapper } from "./TimelineStyle";
 
 export default function Timeline({ publish, title, hashtag, username, pictureUrl }) {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(false)
     const [userLikes, setUserLikes] = useState([]);
-    const [liking, setLiking] = useState(false)
+    const [liking, setLiking] = useState(false);
     const { currentUser } = useContext(UserContext)
+    const [newPosts, setNewPosts] = useState(0);
 
     useEffect(() => {
         loadPosts(setLoading, setPosts, hashtag, username, currentUser.token)
@@ -22,8 +24,9 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag, username]);
 
-    useInterval(() => {
-        getNewPostsQuantity(currentUser.token, posts[posts.length - 1].id);
+    useInterval(async () => {
+        const { count } = await getNewPostsQuantity(currentUser.token, posts[0].id);
+        setNewPosts(count);
     }, POST_ATT_TIME);
 
     async function handleLike(postId) {
@@ -51,10 +54,17 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
         }  
     }
 
+    async function updateTimeline() {
+        await loadPosts(setLoading, setPosts, hashtag, username, currentUser.token)
+        await loadLikes(setUserLikes, currentUser.token);
+        setNewPosts(0)
+    }
+
     return (
         <TimelineWrapper>
             {username ? <PageTitle title={title} pictureUrl={pictureUrl} /> : <PageTitle title={title} />}
             {publish ? <PublishCard setPosts={setPosts} /> : ''}
+            {newPosts > 0 ? <NewPostsButton newPosts={newPosts} updateTimeline={updateTimeline}/> : '' }
             {loading ? <PostCard loading={loading} /> :
                 posts.length > 0 && typeof posts === "object" ?
                     posts.map((post) => {
