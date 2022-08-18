@@ -14,6 +14,7 @@ async function loadUser(id, setUser, token) {
 
 async function loadUserFollow(setUserFollow, name, userId, username, token) {
   if (name === username) return
+  else if(!userId) return
 
   const { data: follow } = await getUserFollow(userId, token)
 
