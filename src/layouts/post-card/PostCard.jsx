@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { ReactTagify } from "react-tagify";
 import { BsPencilFill, BsFillTrash2Fill, BsHeart, BsHeartFill } from "react-icons/bs";
 import { AiOutlineComment } from 'react-icons/ai'
+import { RiRepeatFill } from 'react-icons/ri'
 
 import {
   PostCardWrapper,
@@ -12,6 +13,7 @@ import {
   UserContainer,
   Tooltip,
   CommentsWrapper,
+  RepostWrapper,
 } from "./PostCardStyle";
 
 import { useContext, useState } from "react";
@@ -39,6 +41,9 @@ export default function PostCard({
   setPosts,
   likesCount,
   commentsCount,
+  repostsCount,
+  repost,
+  postRepostUser,
   usersWhoLiked,
   liking
 }) {
@@ -48,6 +53,7 @@ export default function PostCard({
   const [update, setUpdate] = useState(false);
   const [tooltip, setTooltip] = useState(false)
   const [loadingComments, setLoadingComments] = useState(false)
+  const [showComments, setShowComments] = useState(false)
   const [comments, setComments] = useState([])
   const [comment, setComment] = useState('')
   const { currentUser } = useContext(UserContext)
@@ -61,47 +67,56 @@ export default function PostCard({
   };
 
   function postLikes(greaterThree, equalThree) {
-    if(likesCount > 3) {
+    if (likesCount > 3) {
       return `e outras ${likesCount - greaterThree} pessoas`
-    } else if(likesCount === 3) {
+    } else if (likesCount === 3) {
       return `e outras ${likesCount - equalThree} pessoas`
-    } else if(likesCount === 2 && liked.length === 0) {
+    } else if (likesCount === 2 && liked.length === 0) {
       return `e outra pessoa`
-    } 
+    }
     else return ""
   }
 
-
   return (
     <>
+      {repost ? (
+        <RepostWrapper>
+          <RiRepeatFill cursor="pointer" style={{ fontSize: "20px" }} />
+          <p>Re-posted by <span>{postRepostUser === currentUser.username ? 'you' : postRepostUser}</span></p>
+        </RepostWrapper>
+      ) : ''}
       <PostCardWrapper>
         {loading ? (
           <Skeleton baseColor="#444" style={{ width: "50px", height: "50px", borderRadius: "100%", marginRight: "17px" }} />
         ) : (
-        <UserContainer onMouseLeave={() => setTooltip(false)}>
-          <img className="likes" src={pictureUrl} alt="user" />
-          <div onClick={() => handleLike(postId)} disabled={liking}>{liked.length === 1 ? <BsHeartFill color="#AC0000" /> : <BsHeart /> }</div>
-          <span onMouseEnter={() => setTooltip(true)}>{`${likesCount} likes`}</span>
-          <Tooltip tooltip={tooltip}>
-            <div class="arrow-up"></div>
-            <div className="tooltip-body" onMouseLeave={() => setTooltip(false)}>
-              {usersWhoLiked.length === 0 ?
-                'Sem Likes': usersWhoLiked.includes(currentUser.username) ? 
-                `Você${usersWhoLiked.length === 1 ? '' : ','} ${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ? 
-                  usersWhoLiked[usersWhoLiked.length - 2] ?? '' : 
-                  usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(2, 1)}` :
-                `${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ? 
-                  usersWhoLiked[usersWhoLiked.length - 2] ?? '' : 
-                  usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(1, 0)}`
-              }
+          <UserContainer onMouseLeave={() => setTooltip(false)}>
+            <img className="likes" src={pictureUrl} alt="user" />
+            <div onClick={() => handleLike(postId)} disabled={liking}>{liked.length === 1 ? <BsHeartFill color="#AC0000" /> : <BsHeart />}</div>
+            <span onMouseEnter={() => setTooltip(true)}>{`${likesCount} likes`}</span>
+            <Tooltip tooltip={tooltip}>
+              <div class="arrow-up"></div>
+              <div className="tooltip-body" onMouseLeave={() => setTooltip(false)}>
+                {usersWhoLiked.length === 0 ?
+                  'Sem Likes' : usersWhoLiked.includes(currentUser.username) ?
+                    `Você${usersWhoLiked.length === 1 ? '' : ','} ${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ?
+                      usersWhoLiked[usersWhoLiked.length - 2] ?? '' :
+                      usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(2, 1)}` :
+                    `${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ?
+                      usersWhoLiked[usersWhoLiked.length - 2] ?? '' :
+                      usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(1, 0)}`
+                }
+              </div>
+            </Tooltip>
+            <div className="comments" onClick={() => setShowComments(!showComments)}>
+              <AiOutlineComment cursor="pointer" style={{ fontSize: "27px" }}
+                onClick={() => loadComments(postId, setLoadingComments, setComments, currentUser.token)} />
+              <span>{comments.length > commentsCount ? comments.length : commentsCount} comments</span>
             </div>
-          </Tooltip>
-          <div className="comments">
-            <AiOutlineComment cursor="pointer" style={{ fontSize: "27px" }} 
-              onClick={() => loadComments(postId, setLoadingComments, setComments, currentUser.token)} />
-            <span>{commentsCount} comments</span>
-          </div>
-        </UserContainer>
+            <div className="shares">
+              <RiRepeatFill cursor="pointer" style={{ fontSize: "20px" }} onClick={openModal} />
+              <span>{repostsCount} re-posts</span>
+            </div>
+          </UserContainer>
         )}
         <div className="content">
           <HeaderPosts>
@@ -115,11 +130,11 @@ export default function PostCard({
               </div>
             ) : ''}
           </HeaderPosts>
-          <Modal showModal={showModal} setShowModal={setShowModal} postId={postId} setPosts={setPosts} />
+          <Modal showModal={showModal} setShowModal={setShowModal} postId={postId} setPosts={setPosts} repost={true} />
           {loading ? (
             <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} />
-          ) : update ? ( 
-            <InputUpdate description={description} setUpdate={setUpdate} postId={postId} setPosts={setPosts} />  // <------------ Atualizando a description do post
+          ) : update ? (
+            <InputUpdate description={description} setUpdate={setUpdate} postId={postId} setPosts={setPosts} />
           ) : (
             <ReactTagify
               tagStyle={{ cursor: "pointer", fontWeight: "bold", color: "#fff" }}
@@ -140,28 +155,27 @@ export default function PostCard({
                 {loading ? <Skeleton baseColor="#444" style={{ width: "100%", height: "20px" }} /> : url}
               </h4>
             </div>
-            {loading ? <Skeleton baseColor="#444" style={{ width: "140px", height: "100%" }}/> : <img src={urlImage} alt="url" />}
+            {loading ? <Skeleton baseColor="#444" style={{ width: "140px", height: "100%" }} /> : <img src={urlImage} alt="url" />}
           </UrlMetadataWrapper>
         </div>
       </PostCardWrapper>
-      <CommentsWrapper comments={comments}>
+      <CommentsWrapper showComments={showComments}>
         {loadingComments && comments.length === 0 ? <CommentCard loading={loadingComments} /> : ''}
-        {comments.map(comment => 
-          <CommentCard key={comment.id} 
-            username={comment.username} 
-            description={comment.description} 
-            pictureUrl={comment.pictureUrl} 
-            postAuthor={comment.postAuthor} 
-            following={comment.following} 
+        {comments.map(comment =>
+          <CommentCard key={comment.id}
+            username={comment.username}
+            description={comment.description}
+            pictureUrl={comment.pictureUrl}
+            postAuthor={comment.postAuthor}
+            following={comment.following}
             loading={loadingComments}
-            userPage={() => navigate(`/user/${comment.id}`)}
+            userPage={() => navigate(`/user/${comment.userId}`)}
           />
         )}
-        {loadingComments || comments.length > 0 ? 
-          <CommentInput pictureUrl={currentUser.pictureUrl} comment={comment} setComment={setComment} 
-            publishComment={() => publishComment(setComment, comment, setComments, postId, currentUser.token)} /> : 
-          ''
-        }
+        {showComments ? (
+          <CommentInput pictureUrl={currentUser.pictureUrl} comment={comment} setComment={setComment}
+            publishComment={() => publishComment(setComment, comment, setComments, postId, currentUser.token)} />
+        ) : ''}
       </CommentsWrapper>
     </>
   );

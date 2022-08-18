@@ -22,6 +22,8 @@ const GET_COMMENTS_ENDPOINT = (postId) => `${BASE_URL}/comments/${postId}`
 
 const POST_COMMENTS_ENDPOINT = (postId) => `${BASE_URL}/comments/${postId}/publish`
 
+const REPOST_ENDPOINT = (postId) => `${BASE_URL}/reposts/${postId}/share`
+
 const DISLIKE_ENDPOINT = (id) => `${BASE_URL}/dislike/${id}`;
 
 export { 
@@ -34,5 +36,6 @@ export {
     LIKE_ENDPOINT, 
     DISLIKE_ENDPOINT, 
     GET_COMMENTS_ENDPOINT, 
-    POST_COMMENTS_ENDPOINT
+    POST_COMMENTS_ENDPOINT,
+    REPOST_ENDPOINT
 };

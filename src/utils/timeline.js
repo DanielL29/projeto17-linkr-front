@@ -1,4 +1,5 @@
 import { getComments, postComment } from "../services/commentService"
+import { createRepost } from "../services/repostService"
 import { getHashtags } from "./../services/hashtagService"
 import { createPost, getPosts, getLikes } from "./../services/postService"
 
@@ -59,4 +60,17 @@ async function publishComment(setComment, comment, setComments, postId, token) {
     setComments(comments)
 }
 
-export { loadPosts, publishPost, loadLikes, loadComments, publishComment }
+async function repostPost(setLoading, setShowModal, setPosts, postId, hashtag, username, token) {
+    setLoading(true)
+
+    await createRepost(token, postId)
+
+    setLoading(false)
+    setShowModal(false)
+
+    const { data: posts } = await getPosts(token, hashtag, username)
+
+    setPosts(posts)
+}
+
+export { loadPosts, publishPost, loadLikes, loadComments, publishComment, repostPost }

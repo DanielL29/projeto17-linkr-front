@@ -163,6 +163,12 @@ export const UserContainer = styled.div`
     flex-direction: column;
     align-items: center;
   }
+
+  .shares {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 `;
 
 export const Tooltip = styled.div`
@@ -172,6 +178,8 @@ export const Tooltip = styled.div`
   align-items: center;
   z-index: 1;
   transition: all 200ms ease-in-out;
+  position: absolute;
+  margin-top: 110px;
 
   .arrow-up {
     margin-top: 2px;
@@ -204,7 +212,32 @@ export const CommentsWrapper = styled.div`
   height: auto;
   background-color: #1E1E1E;
   border-radius: 16px;
-  padding: ${({ comments }) => comments.length > 0 ? '25px' : '0'};
+  padding: ${({ showComments }) => showComments ? '25px' : '0'};
   margin-bottom: 69px;
   margin-top: -25px;
+`
+
+export const RepostWrapper = styled.div`
+  display: flex;
+  align-items: flex-start;
+
+  width: 611px;
+  height: 80px;
+  background-color: #1E1E1E;
+  border-radius: 16px;
+  font-weight: 400;
+  font-size: 11px;
+  color: #fff;
+  padding-top: 10px;
+  padding-left: 13px;
+  margin-bottom: -40px;
+
+  p {
+    margin-left: 6px;
+    margin-top: 4px;
+  }
+
+  span {
+    font-weight: 700;
+  }
 `
