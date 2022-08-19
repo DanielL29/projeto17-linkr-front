@@ -95,7 +95,7 @@ export default function PostCard({
             <div onClick={() => handleLike(postId)} disabled={liking}>{liked.length > 0 ? <BsHeartFill color="#AC0000" /> : <BsHeart />}</div>
             <span onMouseEnter={() => setTooltip(true)}>{`${likesCount} likes`}</span>
             <Tooltip tooltip={tooltip}>
-              <div class="arrow-up"></div>
+              <div className="arrow-up"></div>
               <div className="tooltip-body" onMouseLeave={() => setTooltip(false)}>
                 {usersWhoLiked.length === 0 ?
                   'Sem Likes' : usersWhoLiked.includes(currentUser.username) ?
