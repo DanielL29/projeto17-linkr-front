@@ -1,11 +1,14 @@
 import { useContext, useEffect, useState } from "react";
+import useInterval from "use-interval";
 import PageTitle from "../../components/page-title/PageTitle";
+import { POST_ATT_TIME } from "../../constants";
 import UserContext from "../../contexts/UserContext";
 import PublishCard from "../../pages/home/PublishCard";
-import { dislikePost, getPosts, likePost } from "../../services/postService";
+import { dislikePost, getNewPostsQuantity, getPosts, likePost } from "../../services/postService";
 import { loadLikes, loadPosts } from "../../utils/timeline";
 import { followUnfollowUser, loadUserFollow } from "../../utils/userPage";
 import PostCard from "../post-card/PostCard";
+import NewPostsButton from "./NewPostsButton";
 import { FollowButton, TimelineWrapper } from "./TimelineStyle";
 
 export default function Timeline({ publish, title, hashtag, username, pictureUrl, name }) {
@@ -15,6 +18,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
     const [liking, setLiking] = useState(false)
     const [userFollow, setUserFollow] = useState(false)
     const { currentUser } = useContext(UserContext)
+    const [newPosts, setNewPosts] = useState(0);
 
     useEffect(() => {
         loadPosts(setLoading, setPosts, hashtag, username, currentUser.token)
@@ -22,6 +26,11 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
         loadUserFollow(setUserFollow, name, username, currentUser.username, currentUser.token)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag, username, name])
+    
+    useInterval(async () => {
+        const { count } = await getNewPostsQuantity(currentUser.token, posts[0].id);
+        setNewPosts(count);
+    }, POST_ATT_TIME);
 
     async function handleLike(postId) {
         const liked = userLikes.filter(like => like.postId === postId);
@@ -48,6 +57,12 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
         }  
     }
 
+    async function updateTimeline() {
+        await loadPosts(setLoading, setPosts, hashtag, username, currentUser.token)
+        await loadLikes(setUserLikes, currentUser.token);
+        setNewPosts(0)
+    }
+
     return (
         <TimelineWrapper>
             {username ? (
@@ -62,6 +77,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
                 </div>
             ) : <PageTitle title={title} />}
             {publish ? <PublishCard setPosts={setPosts} /> : ''}
+            {newPosts > 0 ? <NewPostsButton newPosts={newPosts} updateTimeline={updateTimeline}/> : '' }
             {loading ? <PostCard loading={loading} /> :
                 posts.length > 0 && typeof posts === "object" ?
                     posts.map((post) => {
