@@ -47,6 +47,10 @@ export const Button = styled.button`
     svg {
         margin-left: 15px;
     }
+
+    @media screen and (max-width: 611px) {
+        width: 100%;
+    }
 `;
 
 export const FollowButton = styled.button`

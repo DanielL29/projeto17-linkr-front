@@ -18,23 +18,22 @@ export default function Scroll({ posts, userLikes, setPosts, loading, liking, ha
 
             setFetching(true);
             const { data: newPosts } = await getPosts(currentUser.token, hashtag, username, pageStart);
-            const postFiltered = newPosts.filter((post) => post.id <= posts[posts.length - 1].id);
-            console.log(postFiltered)
+            // const postFiltered = newPosts.filter((post) => post.id <= posts[posts.length - 1].id);
             if(newPosts.length < 10) {
                 setHasMore(false);
-                setPosts([...posts, ...postFiltered]);
+                setPosts([...posts, ...newPosts]);
             } else if(newPosts.length === 0) {
                 setHasMore(false);
             } else {
                 setPageStart(pageStart + 1);
-                setPosts([...posts, ...postFiltered]);
+                setPosts([...posts, ...newPosts]);
             }
             setFetching(false);
 
         }
 
     return(
-        <InfiniteScroll dataLength={posts.length} next={handleLoad} pageStart={pageStart} hasMore={hasMore}>
+        <InfiniteScroll dataLength={posts.length} next={handleLoad} pageStart={pageStart} hasMore={hasMore} loader={<TailSpin />}>
             {posts.map((post) => {
                 return <PostCard key={post.id}
                     username={post.username}
