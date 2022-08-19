@@ -32,7 +32,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
 
     useInterval(async () => {
         if(isTimeline) {
-            const { count } = await getNewPostsQuantity(currentUser.token, posts[0].id);
+            const { count } = await getNewPostsQuantity(currentUser.token, posts[0].id ?? 1);
             setNewPosts(count);
         }
     }, POST_ATT_TIME);

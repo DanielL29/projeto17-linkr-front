@@ -161,7 +161,7 @@ export default function PostCard({
       </PostCardWrapper>
       <CommentsWrapper showComments={showComments}>
         {loadingComments && comments.length === 0 ? <CommentCard loading={loadingComments} /> : ''}
-        {comments.map(comment =>
+        {showComments ? comments.map(comment =>
           <CommentCard key={comment.id}
             username={comment.username}
             description={comment.description}
@@ -171,7 +171,7 @@ export default function PostCard({
             loading={loadingComments}
             userPage={() => navigate(`/user/${comment.userId}`)}
           />
-        )}
+        ) : ''}
         {showComments ? (
           <CommentInput pictureUrl={currentUser.pictureUrl} comment={comment} setComment={setComment}
             publishComment={() => publishComment(setComment, comment, setComments, postId, currentUser.token)} />
