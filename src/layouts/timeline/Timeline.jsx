@@ -30,7 +30,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
         loadUserFollow(setUserFollow, name, username, currentUser.username, currentUser.token)
         setHasMore(true);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [username, hashtag, name]);
 
     useInterval(async () => {
         if(isTimeline) {
