@@ -215,6 +215,10 @@ export const CommentsWrapper = styled.div`
   padding: ${({ showComments }) => showComments ? '25px' : '0'};
   margin-bottom: 69px;
   margin-top: -25px;
+
+  @media screen and (max-width: 611px) {
+    width: 100%;
+  }
 `
 
 export const RepostWrapper = styled.div`
@@ -239,5 +243,9 @@ export const RepostWrapper = styled.div`
 
   span {
     font-weight: 700;
+  }
+
+  @media screen and (max-width: 611px) {
+    width: 100%;
   }
 `

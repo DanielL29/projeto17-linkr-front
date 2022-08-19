@@ -25,6 +25,7 @@ export default function UserPage() {
           title={`${user.username ?? "this user not exist"}'s posts`} 
           pictureUrl={user.pictureUrl ?? 'https://http.cat/404.jpg'} 
           username={id} 
+          name={user.username}
         />
         <Trending />
       </div>
