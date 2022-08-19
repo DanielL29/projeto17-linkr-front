@@ -8,7 +8,6 @@ import PostCard from "../post-card/PostCard";
 import { dislikePost, getNewPostsQuantity, getPosts, likePost } from "../../services/postService";
 import { loadLikes, loadPosts } from "../../utils/timeline";
 import { followUnfollowUser, loadUserFollow } from "../../utils/userPage";
-import PostCard from "../post-card/PostCard";
 import NewPostsButton from "./NewPostsButton";
 import { FollowButton, TimelineWrapper } from "./TimelineStyle";
 import Scroll from "./Scroll";
