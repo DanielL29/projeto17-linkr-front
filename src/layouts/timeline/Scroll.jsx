@@ -33,7 +33,7 @@ export default function Scroll({ posts, userLikes, setPosts, loading, liking, ha
         }
 
     return(
-        <InfiniteScroll dataLength={posts.length} next={handleLoad} pageStart={pageStart} hasMore={hasMore} loader={<TailSpin />}>
+        <InfiniteScroll dataLength={posts.length} next={handleLoad} pageStart={pageStart} hasMore={hasMore}>
             {posts.map((post) => {
                 return <PostCard key={post.id}
                     username={post.username}
