@@ -13,13 +13,15 @@ async function loadUser(id, setUser, token) {
 }
 
 async function loadUserFollow(setUserFollow, name, userId, username, token) {
-  if (name === username) return
-  else if(!userId) return
+  if (name === username) return 
+  else if(userId === undefined) return
 
   const { data: follow } = await getUserFollow(userId, token)
 
   if (follow.userFollow === 1) {
     setUserFollow(true)
+  } else {
+    setUserFollow(false)
   }
 }
 

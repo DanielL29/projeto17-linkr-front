@@ -13,6 +13,12 @@ export const TimelineWrapper = styled.div`
         justify-content: space-between;
         width: 937px;
     }
+    
+    @media screen and (max-width: 937px) {
+        .follow {
+            width: 100%;
+        }
+    }
 
     @media screen and (max-width: 611px) {
         width: 100%;

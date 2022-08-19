@@ -21,7 +21,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
         loadLikes(setUserLikes, currentUser.token);
         loadUserFollow(setUserFollow, name, username, currentUser.username, currentUser.token)
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [hashtag, username])
+    }, [hashtag, username, name])
 
     async function handleLike(postId) {
         const liked = userLikes.filter(like => like.postId === postId);
