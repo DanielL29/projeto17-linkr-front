@@ -7,16 +7,19 @@ import PublishCard from "../../pages/home/PublishCard";
 import PostCard from "../post-card/PostCard";
 import { dislikePost, getNewPostsQuantity, getPosts, likePost } from "../../services/postService";
 import { loadLikes, loadPosts } from "../../utils/timeline";
+import { followUnfollowUser, loadUserFollow } from "../../utils/userPage";
+import PostCard from "../post-card/PostCard";
 import NewPostsButton from "./NewPostsButton";
-import { TimelineWrapper } from "./TimelineStyle";
+import { FollowButton, TimelineWrapper } from "./TimelineStyle";
 import Scroll from "./Scroll";
 import { useMatch } from "react-router-dom";
 
-export default function Timeline({ publish, title, hashtag, username, pictureUrl }) {
+export default function Timeline({ publish, title, hashtag, username, pictureUrl, name }) {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(false)
     const [userLikes, setUserLikes] = useState([]);
-    const [liking, setLiking] = useState(false);
+    const [liking, setLiking] = useState(false)
+    const [userFollow, setUserFollow] = useState(false)
     const { currentUser } = useContext(UserContext)
     const [newPosts, setNewPosts] = useState(0);
     const isTimeline = useMatch("home");
@@ -24,6 +27,7 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
     useEffect(() => {
         loadPosts(setLoading, setPosts, hashtag, username, currentUser.token)
         loadLikes(setUserLikes, currentUser.token);
+        loadUserFollow(setUserFollow, name, username, currentUser.username, currentUser.token)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -67,7 +71,17 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
 
     return (
         <TimelineWrapper>
-            {username ? <PageTitle title={title} pictureUrl={pictureUrl} /> : <PageTitle title={title} />}
+            {username ? (
+                <div className="follow">
+                    <PageTitle title={title} pictureUrl={pictureUrl} /> 
+                    {name !== currentUser.username ? 
+                        <FollowButton userFollow={userFollow} disabled={liking} 
+                            onClick={() => followUnfollowUser(setLiking, setUserFollow, userFollow, username, currentUser.token)}>
+                            {userFollow ? 'UnFollow' : 'Follow'}
+                        </FollowButton> 
+                    : <></> }
+                </div>
+            ) : <PageTitle title={title} />}
             {publish ? <PublishCard setPosts={setPosts} /> : ''}
             {newPosts > 0 ? <NewPostsButton newPosts={newPosts} updateTimeline={updateTimeline}/> : '' }
             {loading ? <PostCard loading={loading} /> :
