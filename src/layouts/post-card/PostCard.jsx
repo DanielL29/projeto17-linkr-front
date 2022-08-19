@@ -136,12 +136,14 @@ export default function PostCard({
           ) : update ? (
             <InputUpdate description={description} setUpdate={setUpdate} postId={postId} setPosts={setPosts} />
           ) : (
-            <ReactTagify
-              tagStyle={{ cursor: "pointer", fontWeight: "bold", color: "#fff" }}
-              tagClicked={(tag) => navigate(`/hashtag/${tag.replace("#", "")}`)}
-            >
-              <p>{description}</p>
-            </ReactTagify>
+            description ? (
+              <ReactTagify
+                tagStyle={{ cursor: "pointer", fontWeight: "bold", color: "#fff" }}
+                tagClicked={(tag) => navigate(`/hashtag/${tag.replace("#", "")}`)}
+              >
+                <p>{description}</p>
+              </ReactTagify>
+            ) : ''
           )}
           <UrlMetadataWrapper onClick={() => window.open(url, "_blank")}>
             <div>
