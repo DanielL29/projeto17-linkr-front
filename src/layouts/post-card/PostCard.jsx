@@ -102,7 +102,7 @@ export default function PostCard({
                     `Você${usersWhoLiked?.length === 1 ? '' : ','} ${usersWhoLiked[usersWhoLiked?.length - 1] === currentUser.username ?
                       usersWhoLiked[usersWhoLiked?.length - 2] ?? '' :
                       usersWhoLiked[usersWhoLiked?.length - 1]} ${postLikes(2, 1)}` :
-                    `${usersWhoLiked[usersWhoLiked?.length - 1] === currentUser.username ?
+                    `${usersWhoLiked && usersWhoLiked[usersWhoLiked?.length - 1] === currentUser.username ?
                       usersWhoLiked[usersWhoLiked?.length - 2] ?? '' :
                       usersWhoLiked[usersWhoLiked?.length - 1]} ${postLikes(1, 0)}`
                 }
