@@ -99,12 +99,12 @@ export default function PostCard({
               <div className="tooltip-body" onMouseLeave={() => setTooltip(false)}>
                 {usersWhoLiked?.length === 0 ?
                   'Sem Likes' : usersWhoLiked?.includes(currentUser.username) ?
-                    `Você${usersWhoLiked?.length === 1 ? '' : ','} ${usersWhoLiked[usersWhoLiked?.length - 1] === currentUser.username ?
-                      usersWhoLiked[usersWhoLiked?.length - 2] ?? '' :
-                      usersWhoLiked[usersWhoLiked?.length - 1] ?? ''} ${postLikes(2, 1)}` :
+                    `Você${usersWhoLiked?.length === 1 ? '' : ','} ${usersWhoLiked && usersWhoLiked[usersWhoLiked?.length - 1] === currentUser.username ?
+                      usersWhoLiked && usersWhoLiked[usersWhoLiked?.length - 2] ? usersWhoLiked[usersWhoLiked?.length - 2] : '' :
+                      usersWhoLiked && usersWhoLiked[usersWhoLiked?.length - 1] ? usersWhoLiked[usersWhoLiked?.length - 2] : ''} ${postLikes(2, 1)}` :
                     `${usersWhoLiked && usersWhoLiked[usersWhoLiked?.length - 1] === currentUser.username ?
-                      usersWhoLiked[usersWhoLiked?.length - 2] ?? '' :
-                      usersWhoLiked[usersWhoLiked?.length - 1] ?? ''} ${postLikes(1, 0)}`
+                      usersWhoLiked && usersWhoLiked[usersWhoLiked?.length - 2] ? usersWhoLiked[usersWhoLiked?.length - 2] : '' :
+                      usersWhoLiked && usersWhoLiked[usersWhoLiked?.length - 1] ? usersWhoLiked[usersWhoLiked?.length - 1] : ''} ${postLikes(1, 0)}`
                 }
               </div>
             </Tooltip>

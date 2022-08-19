@@ -176,7 +176,7 @@ export const Tooltip = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  z-index: 2;
+  z-index: 3;
   transition: all 200ms ease-in-out;
   position: absolute;
   margin-top: 110px;
