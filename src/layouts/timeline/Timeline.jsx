@@ -4,19 +4,22 @@ import UserContext from "../../contexts/UserContext";
 import PublishCard from "../../pages/home/PublishCard";
 import { dislikePost, getPosts, likePost } from "../../services/postService";
 import { loadLikes, loadPosts } from "../../utils/timeline";
+import { followUnfollowUser, loadUserFollow } from "../../utils/userPage";
 import PostCard from "../post-card/PostCard";
-import { TimelineWrapper } from "./TimelineStyle";
+import { FollowButton, TimelineWrapper } from "./TimelineStyle";
 
-export default function Timeline({ publish, title, hashtag, username, pictureUrl }) {
+export default function Timeline({ publish, title, hashtag, username, pictureUrl, name }) {
     const [posts, setPosts] = useState([])
     const [loading, setLoading] = useState(false)
     const [userLikes, setUserLikes] = useState([]);
     const [liking, setLiking] = useState(false)
+    const [userFollow, setUserFollow] = useState(false)
     const { currentUser } = useContext(UserContext)
 
     useEffect(() => {
         loadPosts(setLoading, setPosts, hashtag, username, currentUser.token)
         loadLikes(setUserLikes, currentUser.token);
+        loadUserFollow(setUserFollow, name, username, currentUser.username, currentUser.token)
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [hashtag, username])
 
@@ -47,7 +50,17 @@ export default function Timeline({ publish, title, hashtag, username, pictureUrl
 
     return (
         <TimelineWrapper>
-            {username ? <PageTitle title={title} pictureUrl={pictureUrl} /> : <PageTitle title={title} />}
+            {username ? (
+                <div className="follow">
+                    <PageTitle title={title} pictureUrl={pictureUrl} /> 
+                    {name !== currentUser.username ? 
+                        <FollowButton userFollow={userFollow} disabled={liking} 
+                            onClick={() => followUnfollowUser(setLiking, setUserFollow, userFollow, username, currentUser.token)}>
+                            {userFollow ? 'UnFollow' : 'Follow'}
+                        </FollowButton> 
+                    : <></> }
+                </div>
+            ) : <PageTitle title={title} />}
             {publish ? <PublishCard setPosts={setPosts} /> : ''}
             {loading ? <PostCard loading={loading} /> :
                 posts.length > 0 && typeof posts === "object" ?
