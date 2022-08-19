@@ -11,10 +11,10 @@ async function createPost(post, token) {
     }
 }
 
-async function getPosts(token, hashtag, username) {
+async function getPosts(token, hashtag, username, offset = 0) {
     try {
         const response = axios.get(POSTS_ENDPOINT, {
-            params: { hashtag, username }, 
+            params: { hashtag, username, offset }, 
             headers: AUTH_CONFIG(token).headers 
         })
 

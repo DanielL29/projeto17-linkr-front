@@ -8,6 +8,10 @@ export const TimelineWrapper = styled.div`
         color: #fff;
     }
 
+    ::-webkit-scrollbar {
+        display: none;
+    }
+
     @media screen and (max-width: 611px) {
         width: 100%;
     }
