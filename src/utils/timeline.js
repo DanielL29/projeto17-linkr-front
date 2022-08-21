@@ -28,7 +28,7 @@ async function loadComments(postId, setLoading, setComments, token) {
     setTimeout(() => setLoading(false), 1000)
 }
 
-async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtags, token) {
+async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtags, setHasMore, token) {
     e.preventDefault()
 
     setPublishing(true)
@@ -45,6 +45,7 @@ async function publishPost(e, setPublishing, post, setPost, setPosts, setHashtag
     setPost({ url: '', description: '' })
     setPosts(posts)
     setHashtags(hashtags)
+    setHasMore(true)
 
     setTimeout(() => { setPublishing(false) }, 1000)
 }

@@ -8,6 +8,7 @@ import { useParams } from "react-router-dom";
 import HashtagContext from "../../contexts/HashtagContext";
 import { getHashtags } from "../../services/hashtagService";
 import UserContext from '../../contexts/UserContext'
+import HasMoreContext from '../../contexts/HasMoreContext'
 
 export const InputUpdate = ({ description, setUpdate, postId, setPosts }) => {
   const [inputValue, setInputValue] = useState("");
@@ -16,6 +17,7 @@ export const InputUpdate = ({ description, setUpdate, postId, setPosts }) => {
   const { username, hashtag } = useParams()
   const { setHashtags } = useContext(HashtagContext)
   const { currentUser } = useContext(UserContext)
+  const { setHasMore } = useContext(HasMoreContext)
 
   useEffect(() => {
     inputRef.current.value = description;
@@ -49,6 +51,7 @@ export const InputUpdate = ({ description, setUpdate, postId, setPosts }) => {
 
         setPosts(posts)
         setHashtags(hashtags)
+        setHasMore(true)
       } catch (err) {
         setDisabled(false);
         inputRef.current?.focus();

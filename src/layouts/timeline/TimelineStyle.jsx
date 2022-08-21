@@ -73,3 +73,16 @@ export const FollowButton = styled.button`
         font-size: 15px;
     }
 `
+
+export const LoadingWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h1 {
+        color: #6D6D6D;
+        margin: 15px 0;
+        font-size: 16px;
+    }
+`

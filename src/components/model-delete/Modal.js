@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import { getHashtags } from "../../services/hashtagService";
 import HashtagContext from "../../contexts/HashtagContext";
 import UserContext from "../../contexts/UserContext";
+import HasMoreContext from "../../contexts/HasMoreContext";
 import { repostPost } from "../../utils/timeline";
 
 export const Modal = ({ showModal, setShowModal, postId, setPosts, repost }) => {
@@ -16,6 +17,7 @@ export const Modal = ({ showModal, setShowModal, postId, setPosts, repost }) => 
   const { username, hashtag } = useParams()
   const { setHashtags } = useContext(HashtagContext)
   const { currentUser } = useContext(UserContext)
+  const { setHasMore } = useContext(HasMoreContext)
 
   const closeModal = () => {
     setShowModal((state) => !state);
@@ -34,6 +36,7 @@ export const Modal = ({ showModal, setShowModal, postId, setPosts, repost }) => 
 
       setPosts(posts)
       setHashtags(hashtags)
+      setHasMore(true)
     } catch (err) {
       setLoading(false);
       callToast('Houve um erro ao deleter o seu post', 'error');
