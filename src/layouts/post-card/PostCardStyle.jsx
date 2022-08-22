@@ -30,6 +30,8 @@ export const PostCardWrapper = styled.div`
   background-color: #171717;
   border-radius: 16px;
   padding: 18px;
+  position: relative;
+  z-index: 1;
 
   .likes {
     min-width: 50px;
@@ -177,7 +179,8 @@ export const Tooltip = styled.div`
   z-index: 1;
   transition: all 200ms ease-in-out;
   position: absolute;
-  margin-top: 110px;
+  margin-top: -150px;
+  margin-left: -40px;
 
   .arrow-up {
     margin-top: 2px;
@@ -213,8 +216,6 @@ export const CommentsWrapper = styled.div`
   padding: ${({ showComments }) => showComments ? '25px' : '0'};
   margin-bottom: 69px;
   margin-top: -25px;
-  position: relative;
-  z-index: -1;
 
   @media screen and (max-width: 611px) {
     width: 100%;

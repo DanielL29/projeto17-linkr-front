@@ -94,20 +94,6 @@ export default function PostCard({
             <img className="likes" src={pictureUrl} alt="user" />
             <div onClick={() => handleLike(postId)} disabled={liking}>{liked.length > 0 ? <BsHeartFill color="#AC0000" /> : <BsHeart />}</div>
             <span onMouseEnter={() => setTooltip(true)}>{`${likesCount} likes`}</span>
-            <Tooltip tooltip={tooltip}>
-              <div className="arrow-up"></div>
-              <div className="tooltip-body" onMouseLeave={() => setTooltip(false)}>
-                {usersWhoLiked.length === 0 ?
-                  'Sem Likes' : usersWhoLiked.includes(currentUser.username) ?
-                    `Você${usersWhoLiked.length === 1 ? '' : ','} ${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ?
-                      usersWhoLiked[usersWhoLiked.length - 2] ?? '' :
-                      usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(2, 1)}` :
-                    `${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ?
-                      usersWhoLiked[usersWhoLiked.length - 2] ?? '' :
-                      usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(1, 0)}`
-                }
-              </div>
-            </Tooltip>
             <div className="comments" onClick={() => setShowComments(!showComments)}>
               <AiOutlineComment cursor="pointer" style={{ fontSize: "27px" }}
                 onClick={() => loadComments(postId, setLoadingComments, setComments, currentUser.token)} />
@@ -159,6 +145,22 @@ export default function PostCard({
           </UrlMetadataWrapper>
         </div>
       </PostCardWrapper>
+      {usersWhoLiked ? (
+        <Tooltip tooltip={tooltip}>
+          <div className="arrow-up"></div>
+          <div className="tooltip-body" onMouseLeave={() => setTooltip(false)}>
+            {usersWhoLiked.length === 0 ?
+              'Sem Likes' : usersWhoLiked.includes(currentUser.username) ?
+                `Você${usersWhoLiked.length === 1 ? '' : ','} ${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ?
+                  usersWhoLiked[usersWhoLiked.length - 2] ?? '' :
+                  usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(2, 1)}` :
+                `${usersWhoLiked[usersWhoLiked.length - 1] === currentUser.username ?
+                  usersWhoLiked[usersWhoLiked.length - 2] ?? '' :
+                  usersWhoLiked[usersWhoLiked.length - 1]} ${postLikes(1, 0)}`
+            }
+          </div>
+        </Tooltip>
+      ) : ''} 
       <CommentsWrapper showComments={showComments}>
         {loadingComments && comments.length === 0 ? <CommentCard loading={loadingComments} /> : ''}
         {showComments ? comments.map(comment =>
